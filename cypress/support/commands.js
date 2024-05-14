@@ -1,30 +1,3 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-const { generateUniqueEmail } = require("../support/utils")
-
 Cypress.Commands.add("fillCreateAccountEmail", (userCredentials) => {
   const { email } = userCredentials
   cy.get("#email_create").type(email)
@@ -62,8 +35,16 @@ Cypress.Commands.add("loginUser", (userCredentials) => {
   const { email, password } = userCredentials
 
   cy.get("#email").type(email)
-
   cy.get("#passwd").type(password)
-
   cy.get("#SubmitLogin > span").click()
+})
+
+/**
+ * Retrieves an element and asserts its text content.
+ * @param {string} element - Selector of the element to retrieve.
+ * @param {string} text - Expected text content of the element.
+ */
+
+Cypress.Commands.add("getElemAndAssertText", (element, text) => {
+  cy.get(element).should("be.visible").and("contain.text", text)
 })
