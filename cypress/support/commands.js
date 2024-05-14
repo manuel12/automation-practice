@@ -1,8 +1,18 @@
+/**
+ * Fills the email field in the create account form.
+ * @param {Object} userCredentials - User credentials object containing email.
+ */
+
 Cypress.Commands.add("fillCreateAccountEmail", (userCredentials) => {
   const { email } = userCredentials
   cy.get("#email_create").type(email)
   cy.get("#SubmitCreate > span").click()
 })
+
+/**
+ * Fills the personal information fields in the create account form.
+ * @param {Object} userCredentials - User credentials object containing personal information.
+ */
 
 Cypress.Commands.add("fillYourPersonalInfo", (userCredentials) => {
   const { firstName, lastName, password, days, months, years } = userCredentials
@@ -21,6 +31,11 @@ Cypress.Commands.add("fillYourPersonalInfo", (userCredentials) => {
   cy.get("#submitAccount > span").click()
 })
 
+/**
+ * Signs up a user by filling in the create account form and personal information.
+ * @param {Object} userCredentials - User credentials object containing email, personal information, etc.
+ */
+
 Cypress.Commands.add("signUpUser", (userCredentials) => {
   cy.get(".login").should("be.visible").click()
 
@@ -28,6 +43,11 @@ Cypress.Commands.add("signUpUser", (userCredentials) => {
 
   cy.fillYourPersonalInfo(userCredentials)
 })
+
+/**
+ * Logs in a user by filling in the login form.
+ * @param {Object} userCredentials - User credentials object containing email and password.
+ */
 
 Cypress.Commands.add("loginUser", (userCredentials) => {
   cy.get(".login").should("be.visible").click()
