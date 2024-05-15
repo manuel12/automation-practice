@@ -11,9 +11,24 @@ describe("Automation Practice Test Cases", () => {
 
   it("TC.01 Register User", () => {
     userCredentials.email = generateUniqueEmail(userCredentials.email)
-    cy.log(userCredentials.email)
+
     cy.signUpUser(userCredentials)
+
+    cy.url().should(
+      "eq",
+      "http://www.automationpractice.pl/index.php?controller=my-account",
+    )
+
+    cy.checkElemText(".breadcrumb", "My account")
+
+    cy.checkElemText(".page-heading", "My account")
+
     cy.checkElemText(".alert", "Your account has been created.")
+
+    cy.checkElemText(
+      ".info-account",
+      "Welcome to your account. Here you can manage all of your personal information and orders.",
+    )
   })
 
   it("TC.02 Login User with correct email and password", () => {
@@ -23,6 +38,8 @@ describe("Automation Practice Test Cases", () => {
       "eq",
       "http://www.automationpractice.pl/index.php?controller=my-account",
     )
+
+    cy.checkElemText(".breadcrumb", "My account")
 
     cy.checkElemText(".page-heading", "My account")
 
@@ -41,6 +58,10 @@ describe("Automation Practice Test Cases", () => {
       true,
     )
 
+    cy.checkElemText(".breadcrumb", "Authentication")
+
+    cy.checkElemText(".page-heading", "Authentication")
+
     cy.checkElemText(
       "#center_column > :nth-child(2)",
       "There is 1 error",
@@ -50,13 +71,12 @@ describe("Automation Practice Test Cases", () => {
 
   it("TC.04 Logout User", () => {
     userCredentials.email = generateUniqueEmail(userCredentials.email)
-    cy.log(userCredentials.email)
 
     cy.signUpUser(userCredentials)
 
     cy.checkElemText(".alert", "Your account has been created.")
 
-    cy.get(".logout").click()
+    cy.contains("Sign Out").click()
 
     cy.url().should(
       "eq",
@@ -66,20 +86,20 @@ describe("Automation Practice Test Cases", () => {
     cy.checkElemText(".page-heading", "Authentication")
 
     cy.get("#create-account_form").should("be.visible")
+
     cy.get("#login_form").should("be.visible")
   })
 
   it("TC.05 Register User with existing email", () => {
     userCredentials.email = generateUniqueEmail(userCredentials.email)
-    cy.log(userCredentials.email)
 
     cy.signUpUser(userCredentials)
 
     cy.checkElemText(".alert", "Your account has been created.")
 
-    cy.get(".logout").click()
+    cy.contains("Sign Out").click()
 
-    cy.get(".login").should("be.visible").click()
+    cy.contains("Sign In").click()
 
     cy.fillCreateAccountEmail(userCredentials)
 
@@ -89,18 +109,25 @@ describe("Automation Practice Test Cases", () => {
     )
   })
 
-  it("TC.06 Contact Us Form", () => {
-    cy.get("#contact-link > a").click()
+  it.only("TC.06 Contact Us Form", () => {
+    cy.contains("Contact us").click()
 
-    cy.get("#id_contact").select("Customer service")
+    cy.checkElemText(".breadcrumb", "Contact")
 
-    cy.get("#email").type(userCredentials.email)
+    cy.checkElemText(".page-heading", "Customer service - Contact us")
 
-    cy.get("#id_order").type("12345")
+    cy.checkElemText(".contact-form-box", "send a message").within(() => {
+      cy.get("#id_contact").select("Customer service")
 
-    cy.get("#message").type("My order has not yet arrived!")
+      cy.get("#email").type(userCredentials.email).blur()
+      cy.get(".form-ok #email").should("be.visible")
 
-    cy.get("#submitMessage > span").click()
+      cy.get("#id_order").type("12345")
+
+      cy.get("#message").type("My order has not yet arrived!")
+
+      cy.get("#submitMessage > span").click()
+    })
 
     cy.checkElemText(
       ".alert",
@@ -161,7 +188,6 @@ describe("Automation Practice Test Cases", () => {
 
   it("TC.09 Verify Subscription in home page", () => {
     userCredentials.email = generateUniqueEmail(userCredentials.email)
-    cy.log(userCredentials.email)
 
     cy.get("#newsletter-input").type(userCredentials.email)
     cy.get(".form-group > .btn").click()
@@ -174,7 +200,6 @@ describe("Automation Practice Test Cases", () => {
 
   it("TC.10 Verify Subscription in Cart page", () => {
     userCredentials.email = generateUniqueEmail(userCredentials.email)
-    cy.log(userCredentials.email)
 
     cy.get(".shopping_cart").click()
 
@@ -298,27 +323,7 @@ describe("Automation Practice Test Cases", () => {
     })
   })
 
-  //   it.skip("TC.13 Place Order: Register while Checkout", () => {
-  //     userCredentials.email = generateUniqueEmail(userCredentials.email)
-  //     cy.log(userCredentials.email)
-  //     cy.signUpUser(userCredentials)
-
-  //     cy.addProductToCart(4, "pink")
-
-  //     cy.get(".button-medium > span").click()
-  //   })
-
-  //   it.skip("TC.14 Place Order: Register before Checkout", () => {
-  //     userCredentials.email = generateUniqueEmail(userCredentials.email)
-  //     cy.log(userCredentials.email)
-  //     cy.signUpUser(userCredentials)
-
-  //     cy.addProductToCart(4, "pink")
-
-  //     cy.get(".button-medium > span").click()
-  //   })
-
-  it("TC.15 Place Order: Login before Checkout", () => {
+  it("TC.13 Place Order: Login before Checkout", () => {
     cy.loginUser(userCredentials)
 
     cy.addProductToCart(4, "pink")
@@ -354,7 +359,7 @@ describe("Automation Practice Test Cases", () => {
     cy.checkElemText(".alert", "Your order on My Shop is complete.")
   })
 
-  it("TC.16 Remove Products From Cart", () => {
+  it("TC.14 Remove Products From Cart", () => {
     cy.loginUser(userCredentials)
 
     cy.addProductToCart(4, "pink")
@@ -368,7 +373,7 @@ describe("Automation Practice Test Cases", () => {
     cy.checkElemText(".alert", "Your shopping cart is empty.")
   })
 
-  it("TC.17 View Category Products", () => {
+  it("TC.15 View Category Products", () => {
     cy.clickNavSection("women")
 
     cy.checkElemText(".page-heading", "Women")
@@ -380,7 +385,7 @@ describe("Automation Practice Test Cases", () => {
     cy.get(".product-container").should("have.length", 2)
   })
 
-  it("TC.18 View & Cart Brand Products", () => {
+  it("TC.16 View & Cart Brand Products", () => {
     cy.clickNavSection("women")
 
     cy.checkElemText(".page-heading", "Women")
@@ -398,7 +403,7 @@ describe("Automation Practice Test Cases", () => {
     cy.checkElemText('[title="View my shopping cart"]', "Cart", "1", "Product")
   })
 
-  it("TC.19 Search Products and Verify Cart After Login", () => {
+  it("TC.17 Search Products and Verify Cart After Login", () => {
     cy.loginUser(userCredentials)
 
     cy.searchProduct("Printed Summer Dress")
