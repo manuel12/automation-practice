@@ -332,22 +332,6 @@ describe("Automation Practice Test Cases", () => {
 
     cy.get(".cart_navigation > .button > span").click()
 
-    // cy.get("#firstname").type(userCredentials.firstName)
-    // cy.get("#lastname").type(userCredentials.lastName)
-
-    // cy.get("#company").type(userCredentials.company)
-    // cy.get("#address1").type(userCredentials.address)
-    // cy.get("#city").type(userCredentials.city)
-    // cy.get("#id_state").select(userCredentials.state)
-
-    // cy.get("#postcode").type(userCredentials.zipcode)
-    // cy.get("#id_country").select(userCredentials.country)
-
-    // cy.get("#phone_mobile").type(userCredentials.mobile)
-    // cy.get("#submitAddress > span").click()
-
-    // cy.get(".cart_navigation > .button > span").click()
-
     cy.get(".cart_navigation > .button > span").click()
 
     cy.get("#cgv").click()
