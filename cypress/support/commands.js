@@ -5,8 +5,15 @@
 
 Cypress.Commands.add("fillCreateAccountEmail", (userCredentials) => {
   const { email } = userCredentials
-  cy.get("#email_create").type(email)
-  cy.get("#SubmitCreate > span").click()
+
+  cy.checkElemText("#create-account_form", "Create an account").within(() => {
+    cy.get("#email_create").type(email).blur()
+
+    cy.get(".form-ok").should("be.visible")
+    cy.get(".form-error").should("not.exist")
+
+    cy.get("#SubmitCreate > span").click()
+  })
 })
 
 /**
@@ -17,18 +24,29 @@ Cypress.Commands.add("fillCreateAccountEmail", (userCredentials) => {
 Cypress.Commands.add("fillYourPersonalInfo", (userCredentials) => {
   const { firstName, lastName, password, days, months, years } = userCredentials
 
-  cy.get("#id_gender1").click()
-  cy.get("#customer_firstname").type(firstName)
-  cy.get("#customer_lastname").type(lastName)
-  cy.get("#passwd").type(password)
+  cy.checkElemText(
+    "#account-creation_form",
+    "Your personal information",
+  ).within(() => {
+    cy.get("#id_gender1").click()
 
-  cy.get("#days").select(days)
-  cy.get("#months").select(months)
-  cy.get("#years").select(years)
+    cy.get("#customer_firstname").type(firstName).blur()
+    cy.get(".form-ok #customer_firstname").should("be.visible")
 
-  cy.get("#newsletter").click()
+    cy.get("#customer_lastname").type(lastName).blur()
+    cy.get(".form-ok #customer_lastname").should("be.visible")
 
-  cy.get("#submitAccount > span").click()
+    cy.get("#passwd").type(password).blur()
+    cy.get(".form-ok #passwd").should("be.visible")
+
+    cy.get("#days").select(days)
+    cy.get("#months").select(months)
+    cy.get("#years").select(years)
+
+    cy.get("#newsletter").click()
+
+    cy.get("#submitAccount > span").click()
+  })
 })
 
 /**
@@ -37,7 +55,9 @@ Cypress.Commands.add("fillYourPersonalInfo", (userCredentials) => {
  */
 
 Cypress.Commands.add("signUpUser", (userCredentials) => {
-  cy.get(".login").should("be.visible").click()
+  cy.contains("Sign in").click()
+
+  cy.checkElemText(".breadcrumb", "Authentication")
 
   cy.fillCreateAccountEmail(userCredentials)
 
@@ -51,12 +71,16 @@ Cypress.Commands.add("signUpUser", (userCredentials) => {
  */
 
 Cypress.Commands.add("loginUser", (userCredentials, testInvalidLogin) => {
-  cy.get(".login").should("be.visible").click()
+  cy.contains("Sign in").click()
 
   const { email, password } = userCredentials
 
-  cy.get("#email").type(email)
-  cy.get("#passwd").type(password)
+  cy.get("#email").type(email).blur()
+  cy.get(".form-ok #email").should("be.visible")
+
+  cy.get("#passwd").type(password).blur()
+  cy.get(".form-ok #passwd").should("be.visible")
+
   cy.get("#SubmitLogin > span").click()
 
   if (testInvalidLogin) {
