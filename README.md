@@ -27,3 +27,5 @@ It implements all such tests cases using the Cypress testing framework. The test
 - ✅ TC.15 View Category Products
 - ✅ TC.16 View & Cart Brand Products
 - ✅ TC.17 Search Products and Verify Cart After Login
+
+[(See test code)](cypress/e2e/automation-practice/automation-practice.cy.js)
