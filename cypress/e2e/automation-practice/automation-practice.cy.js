@@ -5,25 +5,18 @@ const { generateUniqueEmail } = require("../../support/utils")
 
 describe("Automation Practice Test Cases", () => {
   beforeEach(() => {
+    userCredentials.email = "testuser@gmail.com"
     cy.visit("http://www.automationpractice.pl/")
   })
 
   it("TC.01 Register User", () => {
     userCredentials.email = generateUniqueEmail(userCredentials.email)
+    cy.log(userCredentials.email)
     cy.signUpUser(userCredentials)
-
-    cy.getElemAndAssertText(".alert", "Your account has been created.")
+    cy.checkElemText(".alert", "Your account has been created.")
   })
 
   it("TC.02 Login User with correct email and password", () => {
-    userCredentials.email = generateUniqueEmail(userCredentials.email)
-
-    cy.signUpUser(userCredentials)
-
-    cy.getElemAndAssertText(".alert", "Your account has been created")
-
-    cy.get(".logout").click()
-
     cy.loginUser(userCredentials)
 
     cy.url().should(
@@ -31,45 +24,37 @@ describe("Automation Practice Test Cases", () => {
       "http://www.automationpractice.pl/index.php?controller=my-account",
     )
 
-    cy.getElemAndAssertText(".page-heading", "My account")
+    cy.checkElemText(".page-heading", "My account")
 
-    cy.getElemAndAssertText(
+    cy.checkElemText(
       ".info-account",
       "Welcome to your account. Here you can manage all of your personal information and orders.",
     )
   })
 
   it("TC.03 Login User with incorrect email and password", () => {
-    userCredentials.email = generateUniqueEmail(userCredentials.email)
-
-    cy.signUpUser(userCredentials)
-
-    cy.getElemAndAssertText(".alert", "Your account has been created.")
-
-    cy.get(".logout").click()
-
-    cy.loginUser({
-      email: "invalid99@gmail.com",
-      password: userCredentials.password,
-    })
-
-    cy.getElemAndAssertText(
-      "#center_column > :nth-child(2)",
-      "There is 1 error",
+    cy.loginUser(
+      {
+        email: "invalid99@gmail.com",
+        password: userCredentials.password,
+      },
+      true,
     )
 
-    cy.getElemAndAssertText(
+    cy.checkElemText(
       "#center_column > :nth-child(2)",
+      "There is 1 error",
       "Authentication failed.",
     )
   })
 
   it("TC.04 Logout User", () => {
     userCredentials.email = generateUniqueEmail(userCredentials.email)
+    cy.log(userCredentials.email)
 
     cy.signUpUser(userCredentials)
 
-    cy.getElemAndAssertText(".alert", "Your account has been created.")
+    cy.checkElemText(".alert", "Your account has been created.")
 
     cy.get(".logout").click()
 
@@ -78,7 +63,7 @@ describe("Automation Practice Test Cases", () => {
       "http://www.automationpractice.pl/index.php?controller=authentication&back=my-account",
     )
 
-    cy.getElemAndAssertText(".page-heading", "Authentication")
+    cy.checkElemText(".page-heading", "Authentication")
 
     cy.get("#create-account_form").should("be.visible")
     cy.get("#login_form").should("be.visible")
@@ -86,10 +71,11 @@ describe("Automation Practice Test Cases", () => {
 
   it("TC.05 Register User with existing email", () => {
     userCredentials.email = generateUniqueEmail(userCredentials.email)
+    cy.log(userCredentials.email)
 
     cy.signUpUser(userCredentials)
 
-    cy.getElemAndAssertText(".alert", "Your account has been created.")
+    cy.checkElemText(".alert", "Your account has been created.")
 
     cy.get(".logout").click()
 
@@ -97,7 +83,7 @@ describe("Automation Practice Test Cases", () => {
 
     cy.fillCreateAccountEmail(userCredentials)
 
-    cy.getElemAndAssertText(
+    cy.checkElemText(
       "#create_account_error",
       "An account using this email address has already been registered. Please enter a valid password or request a new one.",
     )
@@ -116,16 +102,14 @@ describe("Automation Practice Test Cases", () => {
 
     cy.get("#submitMessage > span").click()
 
-    cy.getElemAndAssertText(
+    cy.checkElemText(
       ".alert",
       "Your message has been successfully sent to our team.",
     )
   })
 
   it("TC.07 Verify All Products and product detail page", () => {
-    cy.get(
-      '.sf-menu > :nth-child(1) > [href="http://www.automationpractice.pl/index.php?id_category=3&controller=category"]',
-    ).click()
+    cy.clickNavSection("women")
 
     cy.get(".product-container").each(($el) => {
       cy.get($el).within(() => {
@@ -147,44 +131,42 @@ describe("Automation Practice Test Cases", () => {
       "http://www.automationpractice.pl/index.php?id_product=4&controller=product",
     )
 
-    cy.getElemAndAssertText("h1", "Printed Dress")
+    cy.checkElemText("h1", "Printed Dress")
 
-    cy.getElemAndAssertText("#product_reference", "demo_4")
+    cy.checkElemText("#product_reference", "demo_4")
 
-    cy.getElemAndAssertText("#product_condition", "New product")
+    cy.checkElemText("#product_condition", "New product")
 
-    cy.getElemAndAssertText(
+    cy.checkElemText(
       "#short_description_content > p",
       "Printed evening dress with straight sleeves with black thin waist belt and ruffled linings.",
     )
 
-    cy.getElemAndAssertText(".content_prices", "$51")
+    cy.checkElemText(".content_prices", "$51")
 
     cy.get(".product_attributes").should("be.visible")
   })
 
   it("TC.08 Search Product", () => {
-    cy.get("#search_query_top").type("Blouse")
-    cy.get("#searchbox > .btn").click()
+    cy.searchProduct("Blouse")
 
-    cy.getElemAndAssertText(".page-heading", "Search")
-
-    cy.getElemAndAssertText(".page-heading", "Blouse")
+    cy.checkElemText(".page-heading", "Search", "Blouse")
 
     cy.get(".product_list").should("be.visible")
 
     cy.get(".product_list").within(() => {
-      cy.getElemAndAssertText(".product-container", "Blouse")
+      cy.checkElemText(".product-container", "Blouse")
     })
   })
 
   it("TC.09 Verify Subscription in home page", () => {
     userCredentials.email = generateUniqueEmail(userCredentials.email)
+    cy.log(userCredentials.email)
 
     cy.get("#newsletter-input").type(userCredentials.email)
     cy.get(".form-group > .btn").click()
 
-    cy.getElemAndAssertText(
+    cy.checkElemText(
       ".alert-success",
       "Newsletter : You have successfully subscribed to this newsletter.",
     )
@@ -192,13 +174,14 @@ describe("Automation Practice Test Cases", () => {
 
   it("TC.10 Verify Subscription in Cart page", () => {
     userCredentials.email = generateUniqueEmail(userCredentials.email)
+    cy.log(userCredentials.email)
 
     cy.get(".shopping_cart").click()
 
     cy.get("#newsletter-input").type(userCredentials.email)
     cy.get(".form-group > .btn").click()
 
-    cy.getElemAndAssertText(
+    cy.checkElemText(
       ".alert-success",
       "Newsletter : You have successfully subscribed to this newsletter.",
     )
@@ -206,43 +189,31 @@ describe("Automation Practice Test Cases", () => {
 
   it("TC.11 Add Products in Cart", () => {
     cy.loginUser(userCredentials)
-    cy.get(
-      '.sf-menu > :nth-child(1) > [href="http://www.automationpractice.pl/index.php?id_category=3&controller=category"]',
-    ).click()
+    cy.clickNavSection("women")
 
-    cy.get(".product-container")
-      .eq(1)
-      .within(($el) => {
-        cy.get(" .right-block > .button-container > .lnk_view > span").click()
-      })
+    cy.addProductToCart(2, null, "S")
 
-    cy.get("#color_8").click()
-
-    cy.getElemAndAssertText(".exclusive > span", "Add to cart")
     cy.get(".exclusive > span").click()
 
-    cy.getElemAndAssertText(
+    cy.checkElemText(
       ".layer_cart_product > h2",
       "Product successfully added to your shopping cart",
     )
 
-    cy.getElemAndAssertText(".layer_cart_cart", "There is 1 item in your cart")
-
-    cy.getElemAndAssertText(".layer_cart_cart", "Total products")
-
-    cy.getElemAndAssertText(".layer_cart_cart", "$27")
-
-    cy.getElemAndAssertText(".layer_cart_cart", "Total shipping")
-
-    cy.getElemAndAssertText(".layer_cart_cart", "$7")
-
-    cy.getElemAndAssertText(".layer_cart_cart", "Total")
-
-    cy.getElemAndAssertText(".layer_cart_cart", "$34")
+    cy.checkElemText(
+      ".layer_cart_cart",
+      "There is 1 item in your cart",
+      "Total products",
+      "$27",
+      "Total shipping",
+      "$7",
+      "Total",
+      "$34",
+    )
 
     cy.get(".button-medium > span").click()
 
-    cy.getElemAndAssertText("#cart_title", "Shopping-cart summary")
+    cy.checkElemText("#cart_title", "Shopping-cart summary")
 
     cy.get("#order-detail-content").should("be.visible")
 
@@ -250,96 +221,73 @@ describe("Automation Practice Test Cases", () => {
 
     cy.get("#order-detail-content").should("be.visible")
 
-    cy.getElemAndAssertText("#cart_summary tr", "Product")
-    cy.getElemAndAssertText("#cart_summary tr", "Description")
-    cy.getElemAndAssertText("#cart_summary tr", "Availability")
-    cy.getElemAndAssertText("#cart_summary tr", "Unit price")
-    cy.getElemAndAssertText("#cart_summary tr", "Qty")
-    cy.getElemAndAssertText("#cart_summary tr", "Total")
+    cy.checkElemText(
+      "#cart_summary tr",
+      "Product",
+      "Description",
+      "Availability",
+      "Unit price",
+      "Qty",
+      "Total",
+    )
 
     // Find all elements whose ID starts with "#product_"
     cy.get('[id^="product_"]')
       .first()
       .within(() => {
-        cy.getElemAndAssertText(".cart_description > .product-name", "Blouse")
+        cy.checkElemText(".cart_description > .product-name", "Blouse")
 
-        cy.getElemAndAssertText(".cart_ref", "SKU : demo_2")
+        cy.checkElemText(".cart_ref", "SKU : demo_2")
 
-        cy.getElemAndAssertText(
+        cy.checkElemText(
           ".cart_description > :nth-child(3)",
           "Size : S, Color : White",
         )
 
-        cy.getElemAndAssertText(".label", "In stock")
+        cy.checkElemText(".label", "In stock")
 
-        cy.getElemAndAssertText(".price", "$27")
+        cy.checkElemText(".price", "$27")
 
         cy.get(".cart_quantity_input")
           .should("be.visible")
           .and("contain.value", "1")
 
-        cy.getElemAndAssertText(".cart_total", "$27")
+        cy.checkElemText(".cart_total", "$27")
       })
 
-    cy.getElemAndAssertText("#total_product", "$27")
+    cy.checkElemText("#total_product", "$27")
 
-    cy.getElemAndAssertText("#total_shipping", "$7")
+    cy.checkElemText("#total_shipping", "$7")
 
-    cy.getElemAndAssertText("#total_price_container", "$34")
+    cy.checkElemText("#total_price_container", "$34")
   })
 
   it("TC.12 Verify Product quantity in Cart", () => {
     cy.loginUser(userCredentials)
-    cy.get(
-      '.sf-menu > :nth-child(1) > [href="http://www.automationpractice.pl/index.php?id_category=3&controller=category"]',
-    ).click()
+    cy.clickNavSection("women")
 
-    cy.get(".product-container")
-      .eq(1)
-      .within(($el) => {
-        cy.get(" .right-block > .button-container > .lnk_view > span").click()
-      })
+    cy.addProductToCart(2)
 
-    cy.get("#color_8").click()
-
-    cy.getElemAndAssertText(".exclusive > span", "Add to cart").click()
-
-    cy.getElemAndAssertText(
+    cy.checkElemText(
       ".layer_cart_product > h2",
       "Product successfully added to your shopping cart",
     )
 
-    cy.getElemAndAssertText(".layer_cart_cart", "There is 1 item in your cart.")
+    cy.checkElemText(".layer_cart_cart", "There is 1 item in your cart.")
 
     cy.get(".continue > span").click()
 
-    cy.get(
-      '.sf-menu > :nth-child(1) > [href="http://www.automationpractice.pl/index.php?id_category=3&controller=category"]',
-    ).click()
+    cy.clickNavSection("women")
 
-    cy.get(".product-container")
-      .eq(3)
-      .within(($el) => {
-        cy.get(" .right-block > .button-container > .lnk_view > span").click()
-      })
-
-    cy.get("#color_24").click()
+    cy.addProductToCart(4, "pink")
 
     cy.get(".exclusive > span").click()
 
     cy.get(".continue > span").click()
 
-    cy.get(
-      '.sf-menu > :nth-child(1) > [href="http://www.automationpractice.pl/index.php?id_category=3&controller=category"]',
-    ).click()
+    cy.clickNavSection("women")
 
-    cy.get(".product-container")
-      .eq(4)
-      .within(($el) => {
-        cy.get(" .right-block > .button-container > .lnk_view > span").click()
-      })
-
-    cy.get("#color_14").click()
+    cy.addProductToCart(5, "sky blue")
 
     cy.get(".exclusive > span").click()
 
@@ -348,5 +296,142 @@ describe("Automation Practice Test Cases", () => {
     cy.get(".cart_quantity_input").each(($el) => {
       cy.get($el).should("have.value", "1")
     })
+  })
+
+  //   it.skip("TC.13 Place Order: Register while Checkout", () => {
+  //     userCredentials.email = generateUniqueEmail(userCredentials.email)
+  //     cy.log(userCredentials.email)
+  //     cy.signUpUser(userCredentials)
+
+  //     cy.addProductToCart(4, "pink")
+
+  //     cy.get(".button-medium > span").click()
+  //   })
+
+  //   it.skip("TC.14 Place Order: Register before Checkout", () => {
+  //     userCredentials.email = generateUniqueEmail(userCredentials.email)
+  //     cy.log(userCredentials.email)
+  //     cy.signUpUser(userCredentials)
+
+  //     cy.addProductToCart(4, "pink")
+
+  //     cy.get(".button-medium > span").click()
+  //   })
+
+  it("TC.15 Place Order: Login before Checkout", () => {
+    cy.loginUser(userCredentials)
+
+    cy.addProductToCart(4, "pink")
+
+    cy.get(".button-medium > span").click()
+
+    cy.get(".cart_navigation > .button > span").click()
+
+    // cy.get("#firstname").type(userCredentials.firstName)
+    // cy.get("#lastname").type(userCredentials.lastName)
+
+    // cy.get("#company").type(userCredentials.company)
+    // cy.get("#address1").type(userCredentials.address)
+    // cy.get("#city").type(userCredentials.city)
+    // cy.get("#id_state").select(userCredentials.state)
+
+    // cy.get("#postcode").type(userCredentials.zipcode)
+    // cy.get("#id_country").select(userCredentials.country)
+
+    // cy.get("#phone_mobile").type(userCredentials.mobile)
+    // cy.get("#submitAddress > span").click()
+
+    // cy.get(".cart_navigation > .button > span").click()
+
+    cy.get(".cart_navigation > .button > span").click()
+
+    cy.get("#cgv").click()
+    cy.get(".cart_navigation > .button > span").click()
+
+    cy.get(".bankwire").click()
+    cy.get("#cart_navigation > .button > span").click()
+
+    cy.checkElemText(".alert", "Your order on My Shop is complete.")
+  })
+
+  it("TC.16 Remove Products From Cart", () => {
+    cy.loginUser(userCredentials)
+
+    cy.addProductToCart(4, "pink")
+
+    cy.get(".continue > span").click()
+
+    cy.get('[title="View my shopping cart"]').click()
+
+    cy.removeProductFromCart(4)
+
+    cy.checkElemText(".alert", "Your shopping cart is empty.")
+  })
+
+  it("TC.17 View Category Products", () => {
+    cy.clickNavSection("women")
+
+    cy.checkElemText(".page-heading", "Women")
+    cy.get(".product-container").should("have.length", 7)
+
+    cy.get("#ul_layered_category_0 > :nth-child(1) > label").click()
+
+    cy.checkElemText(".page-heading", "Women > Categories Tops")
+    cy.get(".product-container").should("have.length", 2)
+  })
+
+  it("TC.18 View & Cart Brand Products", () => {
+    cy.clickNavSection("women")
+
+    cy.checkElemText(".page-heading", "Women")
+    cy.get(".product-container").should("have.length", 7)
+
+    cy.get("#ul_layered_category_0 > :nth-child(1) > label").click()
+
+    cy.checkElemText(".page-heading", "Women > Categories Tops")
+    cy.get(".product-container").should("have.length", 2)
+
+    cy.addProductToCart(2)
+
+    cy.get(".continue > span").click()
+
+    cy.checkElemText('[title="View my shopping cart"]', "Cart", "1", "Product")
+  })
+
+  it("TC.19 Search Products and Verify Cart After Login", () => {
+    cy.loginUser(userCredentials)
+
+    cy.searchProduct("Printed Summer Dress")
+
+    cy.addProductToCart(1, "sky blue")
+
+    cy.get(".button-medium > span").click()
+
+    // Find all elements whose ID starts with "#product_"
+    cy.get('[id^="product_"]')
+      .first()
+      .within(() => {
+        cy.checkElemText(
+          ".cart_description > .product-name",
+          "Printed Summer Dress",
+        )
+
+        cy.checkElemText(".cart_ref", "SKU : demo_5")
+
+        cy.checkElemText(
+          ".cart_description > :nth-child(3)",
+          "Size : S, Color : Blue",
+        )
+
+        cy.checkElemText(".label", "In stock")
+
+        cy.checkElemText(".price", "$29")
+
+        cy.get(".cart_quantity_input")
+          .should("be.visible")
+          .and("contain.value", "1")
+
+        cy.checkElemText(".cart_total", "$29")
+      })
   })
 })
