@@ -1,0 +1,20 @@
+{
+  "printedDressInPinkColor": {
+    "productNum": 4,
+    "color": "pink"
+  },
+
+  "blouse": {
+    "productNum": 2
+  },
+
+  "printedSummerDressInSkyBlue": {
+    "productNum": 1,
+    "color": "sky blue"
+  },
+
+  "smallBlouse": {
+    "productNum": 2,
+    "size": "S"
+  }
+}
