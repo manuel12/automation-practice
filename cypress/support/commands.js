@@ -1,24 +1,31 @@
 /**
  * Fills the email field in the create account form.
  * @param {Object} userCredentials - User credentials object containing email.
+ * @param {string} userCredentials.email - The user's email address.
  */
 
 Cypress.Commands.add("fillCreateAccountEmail", (userCredentials) => {
   const { email } = userCredentials
 
   cy.checkElemText("#create-account_form", "Create an account").within(() => {
-    cy.get("#email_create").type(email).blur()
+    cy.get("#email_create").should("be.visible").type(email).blur()
 
     cy.get(".form-ok").should("be.visible")
     cy.get(".form-error").should("not.exist")
 
-    cy.get("#SubmitCreate > span").click()
+    cy.get("#SubmitCreate > span").should("be.visible").click()
   })
 })
 
 /**
  * Fills the personal information fields in the create account form.
  * @param {Object} userCredentials - User credentials object containing personal information.
+ * @param {string} userCredentials.firstName - The user's first name.
+ * @param {string} userCredentials.lastName - The user's last name.
+ * @param {string} userCredentials.password - The user's password.
+ * @param {string} userCredentials.days - The day of birth.
+ * @param {string} userCredentials.months - The month of birth.
+ * @param {string} userCredentials.years - The year of birth.
  */
 
 Cypress.Commands.add("fillYourPersonalInfo", (userCredentials) => {
@@ -26,7 +33,7 @@ Cypress.Commands.add("fillYourPersonalInfo", (userCredentials) => {
 
   cy.checkElemText(
     "#account-creation_form",
-    "Your personal information",
+    "Your personal information"
   ).within(() => {
     cy.get("#id_gender1").click()
 
@@ -67,7 +74,9 @@ Cypress.Commands.add("signUpUser", (userCredentials) => {
 /**
  * Logs in a user by filling in the login form.
  * @param {Object} userCredentials - User credentials object containing email and password.
- * @param {boolean} testInvalidLogin - Flag to indicate whether to test for an invalid login.
+ * @param {string} userCredentials.email - The user's email address.
+ * @param {string} userCredentials.password - The user's password.
+ * @param {boolean} [testInvalidLogin=false] - Flag to indicate whether to test for an invalid login.
  */
 
 Cypress.Commands.add("loginUser", (userCredentials, testInvalidLogin) => {
@@ -89,7 +98,7 @@ Cypress.Commands.add("loginUser", (userCredentials, testInvalidLogin) => {
   } else {
     cy.contains("There is 1 error", { matchCase: false }).should("not.exist")
     cy.contains("Authentication failed.", { matchCase: false }).should(
-      "not.exist",
+      "not.exist"
     )
   }
 })
@@ -100,8 +109,8 @@ Cypress.Commands.add("loginUser", (userCredentials, testInvalidLogin) => {
  */
 
 Cypress.Commands.add("searchProduct", (productQuery) => {
-  cy.get("#search_query_top").type(productQuery)
-  cy.get("#searchbox > .btn").click()
+  cy.get("#search_query_top").should("be.visible").type(productQuery)
+  cy.get("#searchbox > .btn").should("be.visible").click()
 })
 
 /**
@@ -130,68 +139,68 @@ Cypress.Commands.add("clickNavSection", (navSection) => {
 
 /**
  * Adds a product to the cart.
- * @param {string} productNum - The product number to add (1 = first product, 2 = second product, and so on).
- * @param {string} [color=null] - The color of the product. Defaults to null if not provided.
- * @param {string} [size=null] - The size of the product. Defaults to null if not provided.
- * @param {number} [quantity=null] - The quantity of the product. Defaults to null if not provided.
+ * @param {Object} productData - Data about the product to add to the cart.
+ * @param {number} productData.productNum - The product number to add (1 = first product, 2 = second product, and so on).
+ * @param {string} [productData.color=null] - The color of the product. Defaults to null if not provided.
+ * @param {string} [productData.size=null] - The size of the product. Defaults to null if not provided.
+ * @param {number} [productData.quantity=null] - The quantity of the product. Defaults to null if not provided.
  */
 
-Cypress.Commands.add(
-  "addProductToCart",
-  (productNum, color = null, size = null, quantity = null) => {
-    cy.url().then((url) => {
-      cy.log(url)
+Cypress.Commands.add("addProductToCart", (productData) => {
+  const { productNum, color, size, quantity } = productData
 
-      if (
-        !url.includes("&controller=category") &&
-        !url.includes("&search_query=")
-      ) {
-        cy.log(url)
-        cy.clickNavSection("women")
-      }
+  cy.url().then((url) => {
+    cy.log(url)
+
+    if (
+      !url.includes("&controller=category") &&
+      !url.includes("&search_query=")
+    ) {
+      cy.log(url)
+      cy.clickNavSection("women")
+    }
+  })
+
+  const availableProducts = [2, 4, 5, 6, 7]
+
+  cy.get(".product-container")
+    .eq(productNum - 1)
+    .within(($el) => {
+      cy.get(" .right-block > .button-container > .lnk_view > span").click()
     })
 
-    const availableProducts = [2, 4, 5, 6, 7]
+  if (size) {
+    cy.get("#group_1").select(size)
+  }
 
-    cy.get(".product-container")
-      .eq(productNum - 1)
-      .within(($el) => {
-        cy.get(" .right-block > .button-container > .lnk_view > span").click()
-      })
+  if (quantity) {
+    cy.get("#quantity_wanted").clear().type(quantity)
+  }
 
-    if (size) {
-      cy.get("#group_1").select(size)
-    }
+  const colorIDs = {
+    beige: "#color_7",
+    white: "#color_8",
+    black: "#color_11",
+    orange: "#color_13",
+    "sky blue": "#color_14",
+    green: "#color_15",
+    yellow: "#color_16",
+    pink: "#color_24"
+  }
 
-    if (quantity) {
-      cy.get("#quantity_wanted").clear().type(quantity)
-    }
+  if (color) {
+    const selectedColor = colorIDs[color]
 
-    const colorIDs = {
-      beige: "#color_7",
-      white: "#color_8",
-      black: "#color_11",
-      orange: "#color_13",
-      "sky blue": "#color_14",
-      green: "#color_15",
-      yellow: "#color_16",
-      pink: "#color_24",
-    }
+    if (!selectedColor)
+      throw new Error(`Color ${color} not available for products!`)
 
-    if (color) {
-      const selectedColor = colorIDs[color]
+    cy.get(selectedColor).click()
+  } else {
+    cy.get(colorIDs["white"]).click()
+  }
 
-      if (!selectedColor)
-        throw new Error(`Color ${color} not available for products!`)
-
-      cy.get(selectedColor).click()
-    } else {
-      cy.get(colorIDs["white"]).click()
-    }
-
-    cy.checkElemText(".exclusive > span", "Add to cart").click()
-  },
-)
+  cy.checkElemText(".exclusive > span", "Add to cart").click()
+})
 
 /**
  * Removes a product from the cart.
@@ -216,7 +225,7 @@ Cypress.Commands.add("removeProductFromCart", (productNum) => {
 /**
  * Retrieves an element and asserts its text content.
  * @param {string} element - Selector of the element to retrieve.
- * @param {string[]} texts - Expected text content of the element.
+ * @param {...string} texts - Expected text content of the element.
  */
 
 Cypress.Commands.add("checkElemText", (element, ...texts) => {
