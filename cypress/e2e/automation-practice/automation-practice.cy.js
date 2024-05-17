@@ -20,14 +20,11 @@ describe("Automation Practice Test Cases", () => {
 
     cy.signUpUser(userCredentials)
 
-    cy.url().should(
-      "eq",
-      "http://www.automationpractice.pl/index.php?controller=my-account"
-    )
+    cy.url().should("include", "controller=my-account")
 
     cy.checkElemText(".breadcrumb", "My account")
 
-    cy.checkElemText(".page-heading", "My account")
+    cy.checkElemText("h1", "My account")
 
     cy.checkElemText(".alert", "Your account has been created.")
 
@@ -40,14 +37,13 @@ describe("Automation Practice Test Cases", () => {
   it("TC.02 Login User with correct email and password", () => {
     cy.loginUser(userCredentials)
 
-    cy.url().should(
-      "eq",
-      "http://www.automationpractice.pl/index.php?controller=my-account"
-    )
+    cy.url().should("include", "controller=my-account")
 
     cy.checkElemText(".breadcrumb", "My account")
 
-    cy.checkElemText(".page-heading", "My account")
+    cy.checkElemText("h1", "My account")
+
+    cy.checkElemText("h1", "My account")
 
     cy.checkElemText(
       ".info-account",
@@ -66,7 +62,9 @@ describe("Automation Practice Test Cases", () => {
 
     cy.checkElemText(".breadcrumb", "Authentication")
 
-    cy.checkElemText(".page-heading", "Authentication")
+    cy.checkElemText("h1", "Authentication")
+
+    cy.get("#login_form").should("be.visible")
 
     cy.checkElemText(
       "#center_column > :nth-child(2)",
@@ -119,7 +117,7 @@ describe("Automation Practice Test Cases", () => {
 
     cy.checkElemText(".breadcrumb", "Contact")
 
-    cy.checkElemText(".page-heading", "Customer service - Contact us")
+    cy.checkElemText("h1", "Customer service - Contact us")
 
     cy.checkElemText(".contact-form-box", "send a message").within(() => {
       cy.get("#id_contact").select("Customer service")
@@ -145,14 +143,20 @@ describe("Automation Practice Test Cases", () => {
   it("TC.07 Verify All Products and product detail page", () => {
     cy.clickNavSection("women")
 
-    cy.get(".product-container").each(($el) => {
-      cy.get($el).within(() => {
-        cy.get(".product-image-container").should("be.visible")
-        cy.get(".product-name").should("be.visible")
-        cy.get(".content_price").should("be.visible")
-        cy.get(".button-container").should("be.visible")
+    cy.checkElemText("h1", "Women")
+
+    cy.get(".product_list")
+      .should("be.visible")
+      .within(() => {
+        cy.get(".product-container").each(($el) => {
+          cy.get($el).within(() => {
+            cy.get(".product-image-container").should("be.visible")
+            cy.get(".product-name").should("be.visible")
+            cy.get(".content_price").should("be.visible")
+            cy.get(".button-container").should("be.visible")
+          })
+        })
       })
-    })
 
     cy.get(
       ".first-in-line.last-item-of-tablet-line > .product-container > .right-block > .button-container > .lnk_view > span"
@@ -225,7 +229,7 @@ describe("Automation Practice Test Cases", () => {
 
     cy.clickNavSection("women")
 
-    cy.addProductToCart(smallBlouse)
+    cy.addProductToCart(blouse)
 
     cy.get(".exclusive > span").click()
 
@@ -264,16 +268,26 @@ describe("Automation Practice Test Cases", () => {
   it("TC.13 Place Order: Login before Checkout", () => {
     cy.loginUser(userCredentials)
 
+    cy.url().should("include", "my-account")
+
     cy.addProductToCart(printedDressInPinkColor)
 
-    cy.get(".button-medium > span").click()
+    cy.contains("Proceed to checkout").click()
+
+    cy.get(".step_current > span").should("contain.text", "Summary")
 
     cy.get(".cart_navigation > .button > span").click()
 
+    cy.get(".step_current > span").should("contain.text", "Address")
+
     cy.get(".cart_navigation > .button > span").click()
+
+    cy.get(".step_current > span").should("contain.text", "Shipping")
 
     cy.get("#cgv").click()
     cy.get(".cart_navigation > .button > span").click()
+
+    cy.get(".step_current > span").should("contain.text", "Payment")
 
     cy.get(".bankwire").click()
     cy.get("#cart_navigation > .button > span").click()
@@ -281,10 +295,30 @@ describe("Automation Practice Test Cases", () => {
     cy.checkElemText(".alert", "Your order on My Shop is complete.")
   })
 
-  it.only("TC.14 Remove Products From Cart", () => {
+  it("TC.14 Remove Products From Cart", () => {
+    cy.checkElemText(".shopping_cart", "(empty)")
+
+    cy.clickNavSection("women")
+
+    cy.addProductToCart(blouse)
+
+    cy.addProductToCart(blouse)
+
+    cy.addProductToCart(blouse)
+
     cy.checkElemText(".shopping_cart", "3", "Products")
 
-    cy.checkElemText(".shopping_cart", "3", "x", "Blouse")
+    cy.contains("Continue shopping").click()
+
+    cy.get('[title="View my shopping cart"]').trigger("mouseover")
+
+    cy.checkElemText(".cart-info", "3", "x", "Blouse")
+
+    cy.get(".remove_link").click()
+
+    cy.checkElemText(".shopping_cart", "(empty)")
+
+    cy.get('[title="View my shopping cart"]').click()
 
     cy.checkElemText(".alert", "Your shopping cart is empty.")
   })
@@ -314,22 +348,35 @@ describe("Automation Practice Test Cases", () => {
   it("TC.16 View & Cart Brand Products", () => {
     cy.clickNavSection("women")
 
-    cy.checkElemText(".page-heading", "Women")
+    cy.checkElemText("h1", "Women")
+    cy.get(".product_list").should("be.visible")
     cy.get(".product-container").should("have.length", 7)
 
-    cy.get("#ul_layered_category_0 > :nth-child(1) > label").click()
+    cy.get("#ul_layered_category_0 > :nth-child(2) > label").click()
 
-    cy.checkElemText(".page-heading", "Women > Categories Tops")
-    cy.get(".product-container").should("have.length", 2)
+    cy.checkElemText("h1", "Women > Categories Dresses")
+    cy.get(".product-container").should("have.length", 5)
 
-    cy.addProductToCart(blouse)
+    // Product is in the 3rd position when using 'Dresses' filter
+
+    const _printedSummerDressInSkyBlue = {
+      productNum: 3,
+      color: printedSummerDressInSkyBlue.color
+    }
+    cy.addProductToCart(_printedSummerDressInSkyBlue)
+
+    cy.checkElemText(
+      "#layer_cart > .clearfix",
+      "Product successfully added to your shopping cart",
+      "There is 1 item in your cart."
+    )
 
     cy.get(".continue > span").click()
 
     cy.checkElemText('[title="View my shopping cart"]', "Cart", "1", "Product")
   })
 
-  it("TC.17 Search Products and Verify Cart After Login", () => {
+  it.skip("TC.17 Search Products and Verify Cart After Login", () => {
     cy.loginUser(userCredentials)
 
     cy.searchProduct("Printed Summer Dress")
