@@ -50,9 +50,10 @@ Cypress.Commands.add("fillYourPersonalInfo", (userCredentials) => {
     cy.get("#months").select(months)
     cy.get("#years").select(years)
 
+    cy.checkElemText(".checkbox", "Sign up for our newsletter!")
     cy.get("#newsletter").click()
 
-    cy.get("#submitAccount > span").click()
+    cy.contains("Register").click()
   })
 })
 
@@ -65,6 +66,8 @@ Cypress.Commands.add("signUpUser", (userCredentials) => {
   cy.contains("Sign in").click()
 
   cy.checkElemText(".breadcrumb", "Authentication")
+
+  cy.checkElemText("h1", "Authentication")
 
   cy.fillCreateAccountEmail(userCredentials)
 
@@ -84,13 +87,15 @@ Cypress.Commands.add("loginUser", (userCredentials, testInvalidLogin) => {
 
   const { email, password } = userCredentials
 
-  cy.get("#email").type(email).blur()
-  cy.get(".form-ok #email").should("be.visible")
+  cy.get("#login_form").within(() => {
+    cy.get("#email").type(email).blur()
+    cy.get(".form-ok #email").should("be.visible")
 
-  cy.get("#passwd").type(password).blur()
-  cy.get(".form-ok #passwd").should("be.visible")
+    cy.get("#passwd").type(password).blur()
+    cy.get(".form-ok #passwd").should("be.visible")
 
-  cy.get("#SubmitLogin > span").click()
+    cy.contains("Sign in").click()
+  })
 
   if (testInvalidLogin) {
     cy.contains("There is 1 error")
@@ -160,8 +165,6 @@ Cypress.Commands.add("addProductToCart", (productData) => {
       cy.clickNavSection("women")
     }
   })
-
-  const availableProducts = [2, 4, 5, 6, 7]
 
   cy.get(".product-container")
     .eq(productNum - 1)
