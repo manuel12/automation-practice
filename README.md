@@ -28,7 +28,7 @@ It implements all such tests cases using the Cypress testing framework. The test
 - ✅ TC.16 View & Cart Brand Products
 - ✅ TC.17 Search Products and Verify Cart After Login
 
-[(See test cases)](https://docs.google.com/spreadsheets/d/1vFFGPLw8oX3JjDEata74wquvOOXiplJdoiKZoYSFAQs) [(See test code)](cypress/e2e/automation-practice/automation-practice.cy.js)
+[(See test cases)](https://docs.google.com/spreadsheets/d/1JFgnbj6JF42CreaftZL5_30DClLJKdU7ImPi0taLxd8/edit?gid=0#gid=0) [(See test code)](cypress/e2e/automation-practice/automation-practice.cy.js)
 
 ## Installation - Cypress
 
