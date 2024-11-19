@@ -1,7 +1,8 @@
 {
   "printedDressInPinkColor": {
     "productNum": 4,
-    "color": "pink"
+    "color": "pink",
+    "size": "M"
   },
 
   "blouse": {
@@ -9,8 +10,17 @@
   },
 
   "printedSummerDressInSkyBlue": {
+    "name": "Printed Summer Dress",
     "productNum": 1,
-    "color": "sky blue"
+    "color": "sky blue",
+    "size": "M"
+  },
+
+  "printedSummerDressInOrange": {
+    "name": "Printed Summer Dress",
+    "productNum": 1,
+    "color": "orange",
+    "size": "M"
   },
 
   "smallBlouse": {
