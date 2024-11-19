@@ -152,7 +152,7 @@ Cypress.Commands.add("clickNavSection", (navSection) => {
  */
 
 Cypress.Commands.add("addProductToCart", (productData) => {
-  const { productNum, color, size, quantity } = productData
+  const { name, productNum, color, size, quantity } = productData
 
   cy.url().then((url) => {
     cy.log(url)
@@ -166,11 +166,15 @@ Cypress.Commands.add("addProductToCart", (productData) => {
     }
   })
 
-  cy.get(".product-container")
-    .eq(productNum - 1)
-    .within(($el) => {
-      cy.get(" .right-block > .button-container > .lnk_view > span").click()
-    })
+  if (name) {
+    cy.get(".product-name").contains(name).click()
+  } else {
+    cy.get(".product-container")
+      .eq(productNum - 1)
+      .within(($el) => {
+        cy.get(" .right-block > .button-container > .lnk_view > span").click()
+      })
+  }
 
   if (size) {
     cy.get("#group_1").select(size)
