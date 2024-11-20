@@ -22,7 +22,7 @@ describe("Checkout -Shopping Cart", () => {
 
         cy.get(".breadcrumb").should("contain.text", "Your shopping cart")
 
-        cy.get("#cart_title").should("contain.text", "Shopping-cart summary")
+        cy.get(".page-heading").should("contain.text", "Shopping-cart summary")
 
         cy.get(".heading-counter").should(
           "contain.text",
@@ -35,9 +35,10 @@ describe("Checkout -Shopping Cart", () => {
 
       it("should display any items added to cart in cart summary", () => {
         cy.get("#cart_summary").within(() => {
-          cy.get("tbody").within(() => {
-            cy.get("tr").contains("Printed Summer Dress")
-          })
+          cy.get('[id^="product_"]')
+            .first()
+            .should("have.length", 1)
+            .contains("Printed Summer Dress")
         })
       })
 
@@ -87,7 +88,7 @@ describe("Checkout -Shopping Cart", () => {
         })
       })
 
-      it("should display product name of any item added to cart", () => {
+      it("should display SKU of any item added to cart", () => {
         cy.get("td.cart_description").within(() => {
           cy.get(".cart_ref")
             .should("be.visible")
