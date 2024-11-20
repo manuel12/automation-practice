@@ -220,7 +220,7 @@ describe("Shopping Cart - Dropdown List", () => {
         cy.get("dl.products").should("be.visible")
       })
 
-      it.only("should display the total price of products + shipping in the shopping cart", () => {
+      it("should display the total price of products + shipping in the shopping cart", () => {
         cy.get(".cart_block_total").should("be.visible").and("have.text", "$36")
       })
     }

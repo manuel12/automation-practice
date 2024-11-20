@@ -303,7 +303,7 @@ describe("Checkout - Shipping", () => {
         cy.get("#cart_navigation").contains("I confirm my order").click()
       })
 
-      it.only("should display order confirmation", () => {
+      it("should display order confirmation", () => {
         cy.get(".alert")
           .should("be.visible")
           .and("have.text", "Your order on My Shop is complete.")
