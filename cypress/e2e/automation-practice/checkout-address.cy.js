@@ -114,7 +114,40 @@ describe("Checkout -Address", () => {
           .click()
       })
 
-      it("should allow user to update delivery address details", () => {})
+      it("should allow user to update delivery address details", () => {
+        cy.get("#address_delivery")
+          .should("be.visible")
+          .and("include.text", "Your delivery address")
+          .within(() => {
+            cy.get(".address_update > .button > span")
+              .should("be.visible")
+              .click()
+          })
+
+        cy.get("#address1").clear().type("Elm Street 66")
+        cy.get("#city").clear().type("New York City")
+        cy.get("#id_state").select("New York")
+
+        cy.get("#postcode").clear().type("11111")
+
+        cy.get("#id_country").select("United States")
+
+        cy.get("#phone_mobile").clear().type("222 2222 2222")
+
+        cy.get("#submitAddress > span").should("be.visible").click()
+
+        cy.url().should("include", "controller=order?step=1")
+
+        cy.get("#address_delivery")
+          .should("be.visible")
+          .and(
+            "include.text",
+            "Elm Street 66",
+            "New York City",
+            "New York",
+            "United States"
+          )
+      })
     }
   )
 
@@ -160,7 +193,40 @@ describe("Checkout -Address", () => {
           .click()
       })
 
-      it("should allow user to update billing address details", () => {})
+      it("should allow user to update billing address details", () => {
+        cy.get("#address_invoice")
+          .should("be.visible")
+          .and("include.text", "Your billing address")
+          .within(() => {
+            cy.get(".address_update > .button > span")
+              .should("be.visible")
+              .click()
+          })
+
+        cy.get("#address1").clear().type("Elm Street 66")
+        cy.get("#city").clear().type("New York City")
+        cy.get("#id_state").select("New York")
+
+        cy.get("#postcode").clear().type("11111")
+
+        cy.get("#id_country").select("United States")
+
+        cy.get("#phone_mobile").clear().type("222 2222 2222")
+
+        cy.get("#submitAddress > span").should("be.visible").click()
+
+        cy.url().should("include", "controller=order?step=1")
+
+        cy.get("#address_invoice")
+          .should("be.visible")
+          .and(
+            "include.text",
+            "Elm Street 66",
+            "New York City",
+            "New York",
+            "United States"
+          )
+      })
     }
   )
 
@@ -181,7 +247,25 @@ describe("Checkout -Address", () => {
           .click()
       })
 
-      it("should allow user to add a new address", () => {})
+      it("should allow user to add a new address", () => {
+        cy.get(".address_add > .button > span").should("be.visible").click()
+
+        cy.get("#address1").clear().type("Elm Street 66")
+        cy.get("#city").clear().type("New York City")
+        cy.get("#id_state").select("New York")
+
+        cy.get("#postcode").clear().type("11111")
+
+        cy.get("#id_country").select("United States")
+
+        cy.get("#phone_mobile").clear().type("222 2222 2222")
+
+        cy.get("#alias").clear().type("My New Address")
+
+        cy.get("#submitAddress > span").should("be.visible").click()
+
+        cy.url().should("include", "controller=order?step=1")
+      })
     }
   )
 
