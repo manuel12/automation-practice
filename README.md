@@ -48,8 +48,6 @@ For opening cypress client cd to the project's root folder and run:
  - Test pyramid followed: 70/20/10
  - Boundary validation tests
  - Equivalence partitioning tests
- - React component tests
- - API tests
  - UI functional tests(mocked & stubbed)
  - End- to- end tests
  - Accessibility tests
