@@ -145,14 +145,14 @@ Cypress.Commands.add("clickNavSection", (navSection) => {
 /**
  * Adds a product to the cart.
  * @param {Object} productData - Data about the product to add to the cart.
- * @param {number} productData.productNum - The product number to add (1 = first product, 2 = second product, and so on).
+ * @param {number} productData.name - The product name used to find the product in the catalogue.
  * @param {string} [productData.color=null] - The color of the product. Defaults to null if not provided.
  * @param {string} [productData.size=null] - The size of the product. Defaults to null if not provided.
  * @param {number} [productData.quantity=null] - The quantity of the product. Defaults to null if not provided.
  */
 
 Cypress.Commands.add("addProductToCart", (productData) => {
-  const { name, productNum, color, size, quantity } = productData
+  const { name, color, size, quantity } = productData
 
   cy.url().then((url) => {
     cy.log(url)
@@ -166,15 +166,13 @@ Cypress.Commands.add("addProductToCart", (productData) => {
     }
   })
 
-  if (name) {
-    cy.get(".product-name").contains(name).click()
-  } else {
-    cy.get(".product-container")
-      .eq(productNum - 1)
-      .within(($el) => {
-        cy.get(" .right-block > .button-container > .lnk_view > span").click()
-      })
+  if (!name) {
+    throw new Error(
+      'The "name" parameter is required for adding a product to cart.'
+    )
   }
+
+  cy.get(".product-name").contains(name).click()
 
   if (size) {
     cy.get("#group_1").select(size)
