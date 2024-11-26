@@ -126,7 +126,55 @@ describe("Checkout - Shipping", () => {
   )
 
   context(
-    "As I user I want to be able to agree to a Terms of Service checkbox so that I can know exactly the terms of my order:",
+    "As I webmaster I want users to have to agree to the Terms of Service in order to proceed so that I can be sure they understand them:",
+    () => {
+      beforeEach(() => {
+        cy.visit("http://www.automationpractice.pl/")
+
+        cy.loginUser(userCredentials)
+
+        cy.addProductToCart(printedSummerDressInOrange)
+
+        cy.contains("Proceed to checkout").should("be.visible").click()
+
+        cy.get(".cart_navigation a span")
+          .contains("Proceed to checkout")
+          .click()
+
+        cy.get(".cart_navigation button span")
+          .contains("Proceed to checkout")
+          .click()
+      })
+
+      it("should display 'You must agree to the terms of service before continuing' message when trying to continue without agreeing to them", () => {
+        cy.get(".cart_navigation button span")
+          .contains("Proceed to checkout")
+          .click()
+
+        cy.get(".fancybox-error")
+          .should("be.visible")
+          .and(
+            "have.text",
+            "You must agree to the terms of service before continuing."
+          )
+
+        cy.get(".fancybox-item").should("be.visible").click()
+
+        cy.get("#uniform-cgv").should("be.visible").click()
+
+        cy.get(".cart_navigation button span")
+          .contains("Proceed to checkout")
+          .click()
+
+        cy.url().should("include", "controller=order")
+
+        cy.get(".step_current > span").should("contain.text", "05. Payment")
+      })
+    }
+  )
+
+  context(
+    "As a user I want to be able to proceed to the next checkout section:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
