@@ -175,7 +175,7 @@ describe("Shopping Cart - Dropdown List", () => {
   )
 
   context(
-    "As a user I want to the price of shipping to be displayed in the shopping cart so that I don't get unexpected charges:",
+    "As a user I want the price of shipping to be displayed in the shopping cart so that I don't get unexpected charges:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
