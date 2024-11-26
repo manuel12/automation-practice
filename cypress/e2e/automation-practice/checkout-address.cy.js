@@ -90,9 +90,29 @@ describe("Checkout -Address", () => {
       })
 
       it("should display delivery address details", () => {
-        cy.get("#address_delivery").should("be.visible")
+        cy.get("#address_delivery")
+          .should("be.visible")
+          .within(() => {
+            cy.get(".address_firstname")
+              .should("be.visible")
+              .and("contain.text", "Test user")
+            cy.get(" .address_company")
+              .should("be.visible")
+              .and("contain.text", "Microsoft")
+            cy.get(".address_address1")
+              .should("be.visible")
+              .and("contain.text", "Elm Street 66")
+            cy.get(" .address_city")
+              .should("be.visible")
+              .and("contain.text", "New York City")
+            cy.get(".address_country_name")
+              .should("be.visible")
+              .and("contain.text", "United States")
 
-        // TODO: check for correct address data on card
+            cy.get(".address_phone_mobile")
+              .should("be.visible")
+              .and("contain.text", "222 2222 2222")
+          })
       })
     }
   )
@@ -140,13 +160,27 @@ describe("Checkout -Address", () => {
 
         cy.get("#address_delivery")
           .should("be.visible")
-          .and(
-            "include.text",
-            "Elm Street 66",
-            "New York City",
-            "New York",
-            "United States"
-          )
+          .within(() => {
+            cy.get(".address_firstname")
+              .should("be.visible")
+              .and("contain.text", "Test user")
+            cy.get(".address_company")
+              .should("be.visible")
+              .and("contain.text", "Microsoft")
+            cy.get(".address_address1")
+              .should("be.visible")
+              .and("contain.text", "Elm Street 66")
+            cy.get(".address_city")
+              .should("be.visible")
+              .and("contain.text", "New York City")
+            cy.get(".address_country_name")
+              .should("be.visible")
+              .and("contain.text", "United States")
+
+            cy.get(".address_phone_mobile")
+              .should("be.visible")
+              .and("contain.text", "222 2222 2222")
+          })
       })
     }
   )
@@ -169,9 +203,29 @@ describe("Checkout -Address", () => {
       })
 
       it("should display billing address details", () => {
-        cy.get("#address_invoice").should("be.visible")
+        cy.get("#address_invoice")
+          .should("be.visible")
+          .within(() => {
+            cy.get(".address_firstname")
+              .should("be.visible")
+              .and("contain.text", "Test user")
+            cy.get(".address_company")
+              .should("be.visible")
+              .and("contain.text", "Microsoft")
+            cy.get(".address_address1")
+              .should("be.visible")
+              .and("contain.text", "Elm Street 66")
+            cy.get(".address_city")
+              .should("be.visible")
+              .and("contain.text", "New York City")
+            cy.get(".address_country_name")
+              .should("be.visible")
+              .and("contain.text", "United States")
 
-        // TODO: check for correct address data on card
+            cy.get(".address_phone_mobile")
+              .should("be.visible")
+              .and("contain.text", "222 2222 2222")
+          })
       })
     }
   )
@@ -219,13 +273,27 @@ describe("Checkout -Address", () => {
 
         cy.get("#address_invoice")
           .should("be.visible")
-          .and(
-            "include.text",
-            "Elm Street 66",
-            "New York City",
-            "New York",
-            "United States"
-          )
+          .within(() => {
+            cy.get(".address_firstname")
+              .should("be.visible")
+              .and("contain.text", "Test user")
+            cy.get(".address_company")
+              .should("be.visible")
+              .and("contain.text", "Microsoft")
+            cy.get(".address_address1")
+              .should("be.visible")
+              .and("contain.text", "Elm Street 66")
+            cy.get(".address_city")
+              .should("be.visible")
+              .and("contain.text", "New York City")
+            cy.get(".address_country_name")
+              .should("be.visible")
+              .and("contain.text", "United States")
+
+            cy.get(".address_phone_mobile")
+              .should("be.visible")
+              .and("contain.text", "222 2222 2222")
+          })
       })
     }
   )
