@@ -294,4 +294,59 @@ describe("Authentication - Register", () => {
       })
     }
   )
+
+  context("Register - EP test cases - Register invalid email", () => {
+    beforeEach(() => {
+      cy.visit("http://www.automationpractice.pl/")
+
+      cy.get(".login")
+        .should("be.visible")
+        .and("include.text", "Sign in")
+        .click()
+    })
+
+    it("should consider any email without '@' as invalid", () => {
+      cy.get("#email_create").type("invalidEmail").blur()
+      cy.get("#create-account_form > .form_content > .form-group").should(
+        "have.class",
+        "form-error"
+      )
+    })
+
+    it("should consider any email with '@' as valid", () => {
+      cy.get("#email_create").type("randomValidEmail@gmail.com").blur()
+      cy.get("#create-account_form > .form_content > .form-group").should(
+        "have.class",
+        "form-ok"
+      )
+    })
+  })
+
+  context("Register - EP test cases - Register invalid email", () => {
+    beforeEach(() => {
+      cy.visit("http://www.automationpractice.pl/")
+
+      cy.get(".login")
+        .should("be.visible")
+        .and("include.text", "Sign in")
+        .click()
+
+      cy.get("#email_create").type("testuser321@gmail.com")
+      cy.get("#SubmitCreate > span").click()
+    })
+
+    it("should consider any password with less than 5 characters as invalid", () => {
+      cy.get("#account-creation_form").within(() => {
+        cy.get("#passwd").type("123").blur()
+        cy.get(".password.form-group").should("have.class", "form-error")
+      })
+    })
+
+    it("should consider any password with 5 characters or more as valid", () => {
+      cy.get("#account-creation_form").within(() => {
+        cy.get("#passwd").type("ABCDEFGH").blur()
+        cy.get(".password.form-group").should("have.class", "form-ok")
+      })
+    })
+  })
 })
