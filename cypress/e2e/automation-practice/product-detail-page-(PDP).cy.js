@@ -457,4 +457,70 @@ describe("Produc Detail Page", () => {
       })
     }
   )
+
+  context("Product Detail Page (PDP) - EP test cases", () => {
+    beforeEach(() => {
+      cy.visit("http://www.automationpractice.pl/")
+
+      cy.get("#block_top_menu").contains("Women").click()
+
+      cy.get(
+        ".product-container > .left-block > .product-image-container > a.product_img_link"
+      )
+        .eq(4)
+        .click("top") // Click top to avoid Quick View button
+
+      cy.get("#group_1").should("exist")
+
+      cy.wait(500)
+
+      cy.get("#group_1").select("L")
+    })
+
+    it("should consider setting a product quantity of a minus number as invalid", () => {
+      cy.get("#quantity_wanted").clear().type("-1").blur()
+
+      cy.get("#quantity_wanted")
+        .should("have.value", "-1")
+        .and("have.css", "border", "1px solid rgb(255, 0, 0)")
+    })
+
+    it("should consider setting a product quantity of a 0 number as invalid", () => {
+      cy.get("#quantity_wanted").clear().type("0").blur()
+
+      cy.get("#quantity_wanted")
+        .should("have.value", "0")
+        .and("have.css", "border", "1px solid rgb(255, 0, 0)")
+
+      cy.get(".exclusive > span").click()
+
+      cy.get(".fancybox-error")
+        .should("be.visible")
+        .and("include.text", "Null quantity.")
+    })
+
+    it("should consider setting a product quantity higher than the product's available stock as invalid", () => {
+      cy.get("#quantity_wanted").clear().type("5000").blur()
+
+      cy.get("#quantity_wanted").should("have.value", "5000")
+
+      cy.get(".exclusive > span").click()
+
+      cy.get(".fancybox-error")
+        .should("be.visible")
+        .and("include.text", "There isn't enough product in stock.")
+    })
+
+    it("should consider setting a product quantity of higher than 0 is less than product's available stock as valid", () => {
+      cy.get("#quantity_wanted").clear().type("100").blur()
+
+      cy.get("#quantity_wanted").should("have.value", "100")
+
+      cy.get(".exclusive > span").click()
+
+      cy.get(".layer_cart_product")
+        .should("be.visible")
+        .and("include.text", "Product successfully added to your shopping cart")
+    })
+  })
 })
