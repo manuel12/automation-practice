@@ -162,8 +162,6 @@ describe("Catalogue - Sorting", () => {
       })
 
       it("should allow user to filter products by lowest reference first", () => {
-        const textArray = []
-
         cy.get("#selectProductSort").select("Reference: Lowest first")
 
         // Get all products array
@@ -199,9 +197,7 @@ describe("Catalogue - Sorting", () => {
         cy.get(".sf-menu").contains("Women").click()
       })
 
-      it.only("should allow user to filter products by highest reference first", () => {
-        const textArray = []
-
+      it("should allow user to filter products by highest reference first", () => {
         cy.get("#selectProductSort").select("Reference: Highest first")
 
         // Get all products array
