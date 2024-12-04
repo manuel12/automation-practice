@@ -163,4 +163,31 @@ describe("Authentication - Login", () => {
       })
     }
   )
+
+  context("Login - EP test cases - Login invalid email", () => {
+    beforeEach(() => {
+      cy.visit("http://www.automationpractice.pl/")
+
+      cy.get(".login")
+        .should("be.visible")
+        .and("include.text", "Sign in")
+        .click()
+    })
+
+    it("should consider any email without '@' as invalid", () => {
+      cy.get("#email").type("invalidEmail").blur()
+      cy.get("#login_form > .form_content > :nth-child(1)").should(
+        "have.class",
+        "form-error"
+      )
+    })
+
+    it.only("should consider any email with '@' as valid", () => {
+      cy.get("#email").type("randomValidEmail@gmail.com").blur()
+      cy.get("#login_form > .form_content > :nth-child(1)").should(
+        "have.class",
+        "form-ok"
+      )
+    })
+  })
 })
