@@ -103,7 +103,7 @@ describe("Search", () => {
         cy.visit("http://www.automationpractice.pl/")
       })
 
-      it.only("should display error message 'No results were found for your search [searchQuery]' if no results are found", () => {
+      it("should display error message 'No results were found for your search [searchQuery]' if no results are found", () => {
         cy.get("#search_query_top").type("Blue Jeans")
 
         cy.get("#searchbox > .btn").click()
