@@ -322,7 +322,7 @@ describe("Authentication - Register", () => {
     })
   })
 
-  context("Register - EP test cases - Register invalid email", () => {
+  context("Register - EP test cases - Register invalid password", () => {
     beforeEach(() => {
       cy.visit("http://www.automationpractice.pl/")
 
@@ -345,6 +345,34 @@ describe("Authentication - Register", () => {
     it("should consider any password with 5 characters or more as valid", () => {
       cy.get("#account-creation_form").within(() => {
         cy.get("#passwd").type("ABCDEFGH").blur()
+        cy.get(".password.form-group").should("have.class", "form-ok")
+      })
+    })
+  })
+
+  context("Register - BVA test cases - Register invalid password", () => {
+    beforeEach(() => {
+      cy.visit("http://www.automationpractice.pl/")
+
+      cy.get(".login")
+        .should("be.visible")
+        .and("include.text", "Sign in")
+        .click()
+
+      cy.get("#email_create").type("testuser321@gmail.com")
+      cy.get("#SubmitCreate > span").click()
+    })
+
+    it("should have boundary for invalid partition at 4 characters", () => {
+      cy.get("#account-creation_form").within(() => {
+        cy.get("#passwd").type("1234").blur()
+        cy.get(".password.form-group").should("have.class", "form-error")
+      })
+    })
+
+    it("should have boundary for valid partition at 5 characters", () => {
+      cy.get("#account-creation_form").within(() => {
+        cy.get("#passwd").type("12345").blur()
         cy.get(".password.form-group").should("have.class", "form-ok")
       })
     })
