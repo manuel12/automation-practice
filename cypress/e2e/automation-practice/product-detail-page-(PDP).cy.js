@@ -523,4 +523,77 @@ describe("Produc Detail Page", () => {
         .and("include.text", "Product successfully added to your shopping cart")
     })
   })
+
+  context("Product Detail Page (PDP) - BVA test cases", () => {
+    beforeEach(() => {
+      cy.visit("http://www.automationpractice.pl/")
+
+      cy.get("#block_top_menu").contains("Women").click()
+
+      cy.get(
+        ".product-container > .left-block > .product-image-container > a.product_img_link"
+      )
+        .eq(4)
+        .click("top") // Click top to avoid Quick View button
+
+      cy.get("#group_1").should("exist")
+
+      cy.wait(500)
+
+      cy.get("#group_1").select("L")
+    })
+
+    it("should have boundary for invalid quantity partition at 0", () => {
+      cy.get("#quantity_wanted").clear().type("0").blur()
+
+      cy.get("#quantity_wanted")
+        .should("have.value", "0")
+        .and("have.css", "border", "1px solid rgb(255, 0, 0)")
+
+      cy.get(".exclusive > span").click()
+
+      cy.get(".fancybox-error")
+        .should("be.visible")
+        .and("include.text", "Null quantity.")
+    })
+
+    it("should have lower boundary for valid quantity partition at 1", () => {
+      cy.get("#quantity_wanted").clear().type("1").blur()
+
+      cy.get("#quantity_wanted").should("have.value", "1")
+
+      cy.get(".exclusive > span").click()
+
+      cy.get(".layer_cart_product")
+        .should("be.visible")
+        .and("include.text", "Product successfully added to your shopping cart")
+    })
+
+    it("should have upper boundary for valid quantity partition at 'amount available in stock'", () => {
+      cy.get("#quantity_wanted").clear().type("4786").blur()
+
+      cy.get("#quantity_wanted").should("have.value", "4786")
+
+      cy.get(".exclusive > span").click()
+
+      cy.get(".layer_cart_product")
+        .should("be.visible")
+        .and("include.text", "Product successfully added to your shopping cart")
+    })
+
+    it("should have boundary for invalid quantity partition at 'amount available in stock' + 1", () => {
+      cy.get("#quantity_wanted")
+        .clear()
+        .type(4786 + 1)
+        .blur()
+
+      cy.get("#quantity_wanted").should("have.value", 4786 + 1)
+
+      cy.get(".exclusive > span").click()
+
+      cy.get(".fancybox-error")
+        .should("be.visible")
+        .and("include.text", "There isn't enough product in stock.")
+    })
+  })
 })
