@@ -2,7 +2,7 @@
 
 ## Description:
 
-The onbjective of this project is to showcase the test process for http//www.automationpractice.com
+The objective of this project is to showcase the test process for http//www.automationpractice.com
 
 ## Testing Process:
 
