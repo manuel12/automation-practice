@@ -380,13 +380,13 @@ describe("Checkout -Shopping Cart", () => {
       cy.contains("Proceed to checkout").click()
     })
 
-    it("should consider setting a product quantity of a minus number as invalid", () => {
+    it("should consider a product quantity of a minus number as invalid", () => {
       cy.get(".cart_quantity_input").type("-1").blur()
 
       cy.get(".cart_quantity_input").should("have.value", "1")
     })
 
-    it("should consider setting a product quantity of a 0 number as invalid", () => {
+    it("should consider a product quantity of a 0 number as invalid", () => {
       cy.get(".cart_quantity_input").type("0").blur()
 
       cy.get(".alert")
@@ -394,7 +394,7 @@ describe("Checkout -Shopping Cart", () => {
         .and("have.text", "Your shopping cart is empty.")
     })
 
-    it("should consider setting a product quantity higher than the product's available stock as invalid", () => {
+    it("should consider a product quantity higher than the product's available stock as invalid", () => {
       cy.get(".cart_quantity_input").type("5000").blur()
 
       cy.get(".fancybox-error")
@@ -402,10 +402,52 @@ describe("Checkout -Shopping Cart", () => {
         .and("include.text", "There isn't enough product in stock.")
     })
 
-    it("should consider setting a product quantity of higher than 0 is less than product's available stock as valid", () => {
+    it("should consider a product quantity of higher than 0 is less than product's available stock as valid", () => {
       cy.get(".cart_quantity_input").type("100").blur()
 
       cy.get(".cart_quantity_input").should("have.value", "100")
+    })
+  })
+
+  context("Checkout - Shopping Cart Summary - BVA test cases", () => {
+    beforeEach(() => {
+      cy.visit("http://www.automationpractice.pl/")
+
+      cy.loginUser(userCredentials)
+
+      cy.addProductToCart(printedSummerDressInOrange)
+
+      cy.contains("Proceed to checkout").click()
+    })
+
+    it("should have boundary for invalid quantity partition at 0", () => {
+      cy.get(".cart_quantity_input").type("0").blur()
+
+      cy.get(".alert")
+        .should("be.visible")
+        .and("have.text", "Your shopping cart is empty.")
+    })
+
+    it("should have lower boundary for valid quantity partition at 1", () => {
+      cy.get(".cart_quantity_input").type("1").blur()
+
+      cy.get(".cart_quantity_input").should("have.value", "1")
+    })
+
+    it("should have upper boundary for valid quantity partition at 'amount available in stock'", () => {
+      cy.get(".cart_quantity_input").type("4973").blur()
+
+      cy.get(".cart_quantity_input").should("have.value", "4973")
+    })
+
+    it("should have boundary for invalid quantity partition at 'amount available in stock' + 1", () => {
+      cy.get(".cart_quantity_input")
+        .type(4973 + 1)
+        .blur()
+
+      cy.get(".fancybox-error")
+        .should("be.visible")
+        .and("include.text", "There isn't enough product in stock.")
     })
   })
 })
