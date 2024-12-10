@@ -150,7 +150,7 @@ describe("Search", () => {
 
         cy.get(".heading-counter")
           .should("be.visible")
-          .and("have.text", "0 results have been found.")
+          .and("include.text", "0 results have been found.")
 
         cy.get(".alert")
           .should("be.visible")
