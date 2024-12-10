@@ -4,7 +4,7 @@ const userCredentials = require("../../fixtures/user-credentials.json")
 const { printedSummerDressInOrange } = require("../../fixtures/products.json")
 
 describe("Checkout -Shopping Cart", () => {
-  beforeEach(() => {
+  it("should display all the necessary elements", () => {
     cy.visit("http://www.automationpractice.pl/")
 
     cy.loginUser(userCredentials)
@@ -12,9 +12,7 @@ describe("Checkout -Shopping Cart", () => {
     cy.addProductToCart(printedSummerDressInOrange)
 
     cy.contains("Proceed to checkout").click()
-  })
 
-  it("should display all the necessary elements", () => {
     cy.url().should("include", "controller=order")
 
     cy.get(".breadcrumb").should("contain.text", "Your shopping cart")
@@ -45,7 +43,7 @@ describe("Checkout -Shopping Cart", () => {
 
       it("should display any items added to cart in cart summary", () => {
         cy.get("#cart_summary").within(() => {
-          cy.get('[id^="product_"]')
+          cy.get("tr.cart_item")
             .first()
             .should("have.length", 1)
             .contains("Printed Summer Dress")
@@ -91,7 +89,7 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should display product name of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_description").within(() => {
           cy.get(".product-name")
             .should("be.visible")
@@ -100,7 +98,7 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should display SKU of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_description").within(() => {
           cy.get(".cart_ref")
             .should("be.visible")
@@ -109,35 +107,35 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should display size of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_description").within(() => {
           cy.get("a").should("be.visible").and("include.text", "Size : M")
         })
       })
 
       it("should display color of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_description").within(() => {
           cy.get("a").should("be.visible").and("include.text", "Color : Orange")
         })
       })
 
       it("should display availability of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_avail").within(() => {
           cy.get(".label").should("be.visible").and("have.text", "In stock")
         })
       })
 
       it("should display price of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_unit").within(() => {
           cy.get(".old-price").should("be.visible").and("have.text", "$31")
         })
       })
 
       it("should display discounts of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_unit").within(() => {
           cy.get(".price-percent-reduction")
             .should("be.visible")
@@ -146,7 +144,7 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should display quantity of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_quantity").within(() => {
           cy.get(".cart_quantity_input")
             .should("be.visible")
@@ -155,7 +153,7 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should display total product price of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_total").within(() => {
           cy.get('[id^="total_product_price_"]')
             .should("be.visible")
@@ -179,7 +177,7 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should allow the user to update(increasing) the quantity of items in the shopping cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_quantity").within(() => {
           cy.get(".cart_quantity_input")
             .should("be.visible")
@@ -194,7 +192,7 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should allow the user to update(decreasing) the quantity of items in the shopping cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_quantity").within(() => {
           cy.get(".cart_quantity_input")
             .should("be.visible")
@@ -230,15 +228,15 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should allow user to remove any items from the shopping cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_delete").within(() => {
           cy.get(".icon-trash").should("be.visible").click()
-          cy.get('[id^="product_"]').should("not.exist")
-
-          cy.get(".alert")
-            .should("be.visible")
-            .and("have.text", "Your shopping cart is empty.")
+          cy.get("tr.cart_item").should("not.exist")
         })
+
+        cy.get(".alert")
+          .should("be.visible")
+          .and("have.text", "Your shopping cart is empty.")
       })
     }
   )
@@ -257,7 +255,7 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should display the total price of items in the shopping cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("#total_product").should("be.visible").and("include.text", "$29")
       })
     }
@@ -296,7 +294,7 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should display the total price of the order in the shopping cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("#total_price_container")
           .should("be.visible")
           .and("include.text", "$36")
@@ -318,7 +316,7 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should display my delivery address in the shopping cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get(".address.first_item")
           .should("be.visible")
           .and("include.text", "Delivery address")
@@ -403,7 +401,7 @@ describe("Checkout -Shopping Cart", () => {
       })
 
       it("should allow user to continue to next section", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
 
         cy.contains("Proceed to checkout").click()
 

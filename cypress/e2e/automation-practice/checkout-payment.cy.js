@@ -4,7 +4,7 @@ const userCredentials = require("../../fixtures/user-credentials.json")
 const { printedSummerDressInOrange } = require("../../fixtures/products.json")
 
 describe("Checkout - Shipping", () => {
-  beforeEach(() => {
+  it("should display all the necessary elements", () => {
     cy.visit("http://www.automationpractice.pl/")
 
     cy.loginUser(userCredentials)
@@ -24,9 +24,7 @@ describe("Checkout - Shipping", () => {
     cy.get(".cart_navigation button span")
       .contains("Proceed to checkout")
       .click()
-  })
 
-  it("should display all the necessary elements", () => {
     cy.url().should("include", "controller=order")
 
     cy.get(".breadcrumb").should("contain.text", "Your payment method")
@@ -38,7 +36,7 @@ describe("Checkout - Shipping", () => {
 
     cy.get(".heading-counter").should(
       "contain.text",
-      "Your payment section contains:",
+      "Your shopping cart contains:",
       "1 product"
     )
 
@@ -73,7 +71,7 @@ describe("Checkout - Shipping", () => {
       })
 
       it("should display any items added to cart in cart summary", () => {
-        cy.get('[id^="product_"]')
+        cy.get("tr.cart_item")
           .first()
           .should("have.length", 1)
           .contains("Printed Summer Dress")
@@ -117,7 +115,7 @@ describe("Checkout - Shipping", () => {
       })
 
       it("should display product name of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_description").within(() => {
           cy.get(".product-name")
             .should("be.visible")
@@ -126,7 +124,7 @@ describe("Checkout - Shipping", () => {
       })
 
       it("should display SKU of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_description").within(() => {
           cy.get(".cart_ref")
             .should("be.visible")
@@ -135,35 +133,35 @@ describe("Checkout - Shipping", () => {
       })
 
       it("should display size of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_description").within(() => {
           cy.get("a").should("be.visible").and("include.text", "Size : M")
         })
       })
 
       it("should display color of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_description").within(() => {
           cy.get("a").should("be.visible").and("include.text", "Color : Orange")
         })
       })
 
       it("should display availability of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_avail").within(() => {
           cy.get(".label").should("be.visible").and("have.text", "In stock")
         })
       })
 
       it("should display price of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_unit").within(() => {
           cy.get(".old-price").should("be.visible").and("have.text", "$31")
         })
       })
 
       it("should display discounts of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_unit").within(() => {
           cy.get(".price-percent-reduction")
             .should("be.visible")
@@ -172,17 +170,17 @@ describe("Checkout - Shipping", () => {
       })
 
       it("should display quantity of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_quantity").should("be.visible").and("include.text", "1")
       })
 
       it("should display shipping price of any items added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("#total_shipping").should("be.visible").and("include.text", "$7")
       })
 
       it("should display total product price of any item added to cart", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("td.cart_total").within(() => {
           cy.get('[id^="total_product_price_"]')
             .should("be.visible")
@@ -206,7 +204,7 @@ describe("Checkout - Shipping", () => {
       })
 
       it("should display the total price of shipping in the payment section", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("#total_shipping").should("be.visible").and("include.text", "$7")
       })
     }
@@ -226,7 +224,7 @@ describe("Checkout - Shipping", () => {
       })
 
       it("should display the total price of the order in the payment section", () => {
-        cy.get('[id^="product_"]').should("have.length", 1)
+        cy.get("tr.cart_item").should("have.length", 1)
         cy.get("#total_price_container")
           .should("be.visible")
           .and("include.text", "$36")
@@ -263,7 +261,7 @@ describe("Checkout - Shipping", () => {
 
       it("should allow the user to pay by bank wire", () => {
         cy.get("#cart_summary").within(() => {
-          cy.get('[id^="product_"]').first().should("have.length", 1)
+          cy.get("tr.cart_item").first().should("have.length", 1)
         })
 
         cy.get(".bankwire")
@@ -316,7 +314,7 @@ describe("Checkout - Shipping", () => {
 
       it("should allow the user to pay by check wire", () => {
         cy.get("#cart_summary").within(() => {
-          cy.get('[id^="product_"]').first().should("have.length", 1)
+          cy.get("tr.cart_item").first().should("have.length", 1)
         })
 
         cy.get(".cheque")

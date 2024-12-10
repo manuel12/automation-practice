@@ -4,7 +4,7 @@ const userCredentials = require("../../fixtures/user-credentials.json")
 const { printedSummerDressInOrange } = require("../../fixtures/products.json")
 
 describe("Checkout - Shipping", () => {
-  beforeEach(() => {
+  it("should display all the necessary elements", () => {
     cy.visit("http://www.automationpractice.pl/")
 
     cy.loginUser(userCredentials)
@@ -18,9 +18,7 @@ describe("Checkout - Shipping", () => {
     cy.get(".cart_navigation button span")
       .contains("Proceed to checkout")
       .click()
-  })
 
-  it("should display all the necessary elements", () => {
     cy.url().should("include", "controller=order")
 
     cy.get(".breadcrumb").should("contain.text", "Shipping:")
