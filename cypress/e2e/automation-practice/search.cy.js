@@ -14,7 +14,7 @@ describe("Search", () => {
   })
 
   context(
-    "As a user I want to be able to search for the products by name so that I can find them more easily: ",
+    "As a customer, I want to be able to search for the products by name, so that I can find them more easily:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -97,7 +97,7 @@ describe("Search", () => {
   )
 
   context(
-    "As a user I want detailed error messages if no results for my search were found so that I search for something else:",
+    "As a customer, I want detailed error messages if no results for my search were found, so that I search for something else:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -134,6 +134,27 @@ describe("Search", () => {
           .should("be.visible")
           .and("include.text", "No results were found for your search")
           .and("include.text", "Socks")
+      })
+    }
+  )
+
+  context(
+    "As a customer, I want detailed error messages if I didn't input any text on search field, so that I can search for something else:",
+    () => {
+      beforeEach(() => {
+        cy.visit("http://www.automationpractice.pl/")
+      })
+
+      it("should display error message 'Please enter a search keyword' if search query was empty", () => {
+        cy.get("#searchbox > .btn").click()
+
+        cy.get(".heading-counter")
+          .should("be.visible")
+          .and("have.text", "0 results have been found.")
+
+        cy.get(".alert")
+          .should("be.visible")
+          .and("include.text", "Please enter a search keyword")
       })
     }
   )
