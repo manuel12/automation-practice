@@ -4,8 +4,34 @@ const userCredentials = require("../../fixtures/user-credentials.json")
 const { printedSummerDressInOrange } = require("../../fixtures/products.json")
 
 describe("Checkout - Shipping", () => {
+  beforeEach(() => {
+    cy.visit("http://www.automationpractice.pl/")
+
+    cy.loginUser(userCredentials)
+
+    cy.addProductToCart(printedSummerDressInOrange)
+
+    cy.contains("Proceed to checkout").should("be.visible").click()
+
+    cy.get(".cart_navigation a span").contains("Proceed to checkout").click()
+
+    cy.get(".cart_navigation button span")
+      .contains("Proceed to checkout")
+      .click()
+  })
+
+  it("should display all the necessary elements", () => {
+    cy.url().should("include", "controller=order")
+
+    cy.get(".breadcrumb").should("contain.text", "Shipping:")
+
+    cy.get(".page-heading").should("contain.text", "Shipping:")
+
+    cy.get(".step_current > span").should("contain.text", "04. Shipping")
+  })
+
   context(
-    "As I user I want to choose a shipping option for my order so I can select one that best fits my need:",
+    "As a customer, I want to choose a shipping option for my order, so that I can select one that best fits my need:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -25,16 +51,6 @@ describe("Checkout - Shipping", () => {
           .click()
       })
 
-      it("should display all the necessary elements", () => {
-        cy.url().should("include", "controller=order")
-
-        cy.get(".breadcrumb").should("contain.text", "Shipping:")
-
-        cy.get(".page-heading").should("contain.text", "Shipping:")
-
-        cy.get(".step_current > span").should("contain.text", "04. Shipping")
-      })
-
       it("should allow user to choose a shipping option", () => {
         cy.get(".order_carrier_content")
           .should("be.visible")
@@ -43,7 +59,7 @@ describe("Checkout - Shipping", () => {
               .should("be.visible")
               .and(
                 "contain.text",
-                "hoose a shipping option for this address: Poland address"
+                "Choose a shipping option for this address: Poland address"
               )
           })
       })
@@ -51,7 +67,7 @@ describe("Checkout - Shipping", () => {
   )
 
   context(
-    "As I user I want to see the cost of my selected shipping method so I can know there are no unexpected charges:",
+    "As a customer, I want to see the cost of my selected shipping method, so that I can know there are no unexpected charges:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -80,7 +96,7 @@ describe("Checkout - Shipping", () => {
   )
 
   context(
-    "As I user I want to be able to agree to a Terms of Service checkbox so that I can know exactly the terms of my order:",
+    "As a customer, I want to be able to agree to a 'Terms of Service' checkbox, so that I can know exactly the terms of my order:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -100,7 +116,7 @@ describe("Checkout - Shipping", () => {
           .click()
       })
 
-      it("should allow user to agree to Terms of Service", () => {
+      it("should allow user to agree to 'Terms of Service'", () => {
         cy.get(".order_carrier_content > :nth-child(4)")
           .should("be.visible")
           .and("include.text", "Terms of service")
@@ -126,7 +142,7 @@ describe("Checkout - Shipping", () => {
   )
 
   context(
-    "As I webmaster I want users to have to agree to the Terms of Service in order to proceed so that I can be sure they understand them:",
+    "As a webmaster, I want customers to have to agree to the 'Terms of Service' in order to proceed, so that I can be sure they understand them:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -174,7 +190,7 @@ describe("Checkout - Shipping", () => {
   )
 
   context(
-    "As a user I want to be able to proceed to the next checkout section:",
+    "As a customer, I want to be able to proceed to the next checkout section:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")

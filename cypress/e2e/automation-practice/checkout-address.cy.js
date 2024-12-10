@@ -4,8 +4,30 @@ const userCredentials = require("../../fixtures/user-credentials.json")
 const { printedSummerDressInOrange } = require("../../fixtures/products.json")
 
 describe("Checkout -Address", () => {
+  beforeEach(() => {
+    cy.visit("http://www.automationpractice.pl/")
+
+    cy.loginUser(userCredentials)
+
+    cy.addProductToCart(printedSummerDressInOrange)
+
+    cy.contains("Proceed to checkout").should("be.visible").click()
+
+    cy.get(".cart_navigation a span").contains("Proceed to checkout").click()
+  })
+
+  it("should display all the necessary elements", () => {
+    cy.url().should("include", "controller=order&step=1")
+
+    cy.get(".breadcrumb").should("contain.text", "Addresses")
+
+    cy.get(".page-heading").should("contain.text", "Addresses")
+
+    cy.get(".step_current > span").should("contain.text", "03. Address")
+  })
+
   context(
-    "As a user I want to be able to choose my preferred delivery address in checkout Address:",
+    "As a customer, I want to be able to choose my preferred delivery address in checkout 'Address' section:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -21,16 +43,6 @@ describe("Checkout -Address", () => {
           .click()
       })
 
-      it("should display all the necessary elements", () => {
-        cy.url().should("include", "controller=order&step=1")
-
-        cy.get(".breadcrumb").should("contain.text", "Addresses")
-
-        cy.get(".page-heading").should("contain.text", "Addresses")
-
-        cy.get(".step_current > span").should("contain.text", "03. Address")
-      })
-
       it("should allow user to choose delivery address", () => {
         cy.get(".address_delivery > label")
           .should("be.visible")
@@ -42,7 +54,7 @@ describe("Checkout -Address", () => {
   )
 
   context(
-    "As a user I want to be able to choose my delivery address as billing address for tax purposes:",
+    "As a customer, I want to be able to choose my delivery address as billing address for tax purposes:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -73,7 +85,7 @@ describe("Checkout -Address", () => {
   )
 
   context(
-    "As a user I want to be able see my delivery address displayed in checkout Address:",
+    "As a customer, I want to be able see my delivery address displayed in checkout 'Address' section:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -92,6 +104,7 @@ describe("Checkout -Address", () => {
       it("should display delivery address details", () => {
         cy.get("#address_delivery")
           .should("be.visible")
+          .and("Your Delivery Address")
           .within(() => {
             cy.get(".address_firstname")
               .should("be.visible")
@@ -144,17 +157,21 @@ describe("Checkout -Address", () => {
               .click()
           })
 
-        cy.get("#address1").clear().type("Elm Street 66")
-        cy.get("#city").clear().type("New York City")
-        cy.get("#id_state").select("New York")
+        cy.get("#add_address")
+          .should("be.visible")
+          .within(() => {
+            cy.get("#address1").clear().type("Elm Street 66")
+            cy.get("#city").clear().type("New York City")
+            cy.get("#id_state").select("New York")
 
-        cy.get("#postcode").clear().type("11111")
+            cy.get("#postcode").clear().type("11111")
 
-        cy.get("#id_country").select("United States")
+            cy.get("#id_country").select("United States")
 
-        cy.get("#phone_mobile").clear().type("222 2222 2222")
+            cy.get("#phone_mobile").clear().type("222 2222 2222")
 
-        cy.get("#submitAddress > span").should("be.visible").click()
+            cy.get("#submitAddress > span").should("be.visible").click()
+          })
 
         cy.url().should("include", "controller=order?step=1")
 
@@ -186,7 +203,7 @@ describe("Checkout -Address", () => {
   )
 
   context(
-    "As a user I want to be able see my billing address displayed in checkout Address:",
+    "As a customer, I want to be able see my billing address displayed in checkout 'Address' section:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -205,6 +222,7 @@ describe("Checkout -Address", () => {
       it("should display billing address details", () => {
         cy.get("#address_invoice")
           .should("be.visible")
+          .and("have.text", "Your Billing Address")
           .within(() => {
             cy.get(".address_firstname")
               .should("be.visible")
@@ -231,7 +249,7 @@ describe("Checkout -Address", () => {
   )
 
   context(
-    "As a user I want to be able to update my billing address displayed in checkout Address:",
+    "As a customer, I want to be able to update my billing address displayed in checkout 'Address' section:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -250,7 +268,7 @@ describe("Checkout -Address", () => {
       it("should allow user to update billing address details", () => {
         cy.get("#address_invoice")
           .should("be.visible")
-          .and("include.text", "Your billing address")
+          .and("include.text", "Your Billing Address")
           .within(() => {
             cy.get(".address_update > .button > span")
               .should("be.visible")
@@ -299,7 +317,7 @@ describe("Checkout -Address", () => {
   )
 
   context(
-    "As a user I want to be add a new address in checkout Address:",
+    "As a customer, I want to be add a new address in checkout 'Address' section:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -316,7 +334,10 @@ describe("Checkout -Address", () => {
       })
 
       it("should allow user to add a new address", () => {
-        cy.get(".address_add > .button > span").should("be.visible").click()
+        cy.get(".address_add > .button > span")
+          .should("be.visible")
+          .and("have.text", "Add a new address")
+          .click()
 
         cy.get("#address1").clear().type("Elm Street 66")
         cy.get("#city").clear().type("New York City")
@@ -338,7 +359,7 @@ describe("Checkout -Address", () => {
   )
 
   context(
-    "As a user I want to add a comment about my order so that I can give additional information:",
+    "As a customer, I want to add a comment about my order, so that I can give additional information:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -382,7 +403,7 @@ describe("Checkout -Address", () => {
   )
 
   context(
-    "As a user I want to be able to proceed to the next checkout section:",
+    "As a customer, I want to be able to proceed to the next checkout section:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
