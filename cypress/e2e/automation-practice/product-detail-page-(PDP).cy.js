@@ -1,13 +1,11 @@
 /// <reference types="cypress" />
 
 describe("Produc Detail Page", () => {
-  beforeEach(() => {
+  it("should display all the necessary elements", () => {
     cy.visit("http://www.automationpractice.pl/")
 
     cy.get("#block_top_menu").contains("Women").click()
-  })
 
-  it("should display all the necessary elements", () => {
     cy.get(
       ".product-container > .left-block > .product-image-container > a.product_img_link"
     )
@@ -138,15 +136,14 @@ describe("Produc Detail Page", () => {
         cy.visit("http://www.automationpractice.pl/")
 
         cy.get("#block_top_menu").contains("Women").click()
+      })
 
+      it("should display 'In Stock' text if product is available", () => {
         cy.get(
           ".product-container > .left-block > .product-image-container > a.product_img_link"
         )
           .eq(4)
           .click("top") // Click top to avoid Quick View button
-      })
-
-      it("should display 'In Stock' text if product is available", () => {
         cy.wait(500)
         cy.get("#group_1").select("M")
 
@@ -159,6 +156,12 @@ describe("Produc Detail Page", () => {
       })
 
       it("should display 'This product is no longer in stock with those attributes but is available with others.' text if product not available", () => {
+        cy.get(
+          ".product-container > .left-block > .product-image-container > a.product_img_link"
+        )
+          .eq(4)
+          .click("top") // Click top to avoid Quick View button
+
         cy.get("#availability_value")
           .should("be.visible")
           .and(
@@ -168,6 +171,12 @@ describe("Produc Detail Page", () => {
       })
 
       it("should display 'This product is no longer in stock' text if product not available", () => {
+        cy.get(
+          ".product-container > .left-block > .product-image-container > a.product_img_link"
+        )
+          .eq(0)
+          .click("top") // Click top to avoid Quick View button
+
         cy.get("#availability_value")
           .should("be.visible")
           .and("have.text", "This product is no longer in stock")
@@ -564,30 +573,44 @@ describe("Produc Detail Page", () => {
     })
 
     it("should have upper boundary for valid quantity partition at 'amount available in stock'", () => {
-      cy.get("#quantity_wanted").clear().type("4786").blur()
+      cy.get("#quantityAvailable").then(($el) => {
+        const amountAvailableInStock = $el.text().trim()
 
-      cy.get("#quantity_wanted").should("have.value", "4786")
+        cy.get("#quantity_wanted").clear().type(amountAvailableInStock).blur()
 
-      cy.get(".exclusive > span").click()
+        cy.get("#quantity_wanted").should("have.value", amountAvailableInStock)
 
-      cy.get(".layer_cart_product")
-        .should("be.visible")
-        .and("include.text", "Product successfully added to your shopping cart")
+        cy.get(".exclusive > span").click()
+
+        cy.get(".layer_cart_product")
+          .should("be.visible")
+          .and(
+            "include.text",
+            "Product successfully added to your shopping cart"
+          )
+      })
     })
 
     it("should have boundary for invalid quantity partition at 'amount available in stock' + 1", () => {
-      cy.get("#quantity_wanted")
-        .clear()
-        .type(4786 + 1)
-        .blur()
+      cy.get("#quantityAvailable").then(($el) => {
+        const amountAvailableInStock = $el.text().trim()
 
-      cy.get("#quantity_wanted").should("have.value", 4786 + 1)
+        cy.get("#quantity_wanted")
+          .clear()
+          .type(amountAvailableInStock + 1)
+          .blur()
 
-      cy.get(".exclusive > span").click()
+        cy.get("#quantity_wanted").should(
+          "have.value",
+          amountAvailableInStock + 1
+        )
 
-      cy.get(".fancybox-error")
-        .should("be.visible")
-        .and("include.text", "There isn't enough product in stock.")
+        cy.get(".exclusive > span").click()
+
+        cy.get(".fancybox-error")
+          .should("be.visible")
+          .and("include.text", "There isn't enough product in stock.")
+      })
     })
   })
 })
