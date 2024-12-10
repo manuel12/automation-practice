@@ -5,8 +5,37 @@ const unregisteredUserCredentials = require("../../fixtures/unregistered-credent
 const invalidUserCredentials = require("../../fixtures/invalid-credentials.json")
 
 describe("Authentication - Register", () => {
+  beforeEach(() => {
+    cy.visit("http://www.automationpractice.pl/")
+
+    cy.get(".login").should("be.visible").and("include.text", "Sign in").click()
+  })
+
+  it("should display all the necessary elements", () => {
+    cy.url().should("include", "controller=authentication")
+
+    cy.get(".breadcrumb").should("contain.text", "Authentication")
+
+    cy.get(".page-heading").should("contain.text", "Authentication")
+
+    cy.get("#create-account_form").within(() => {
+      cy.get(".page-subheading").should("have.text", "Create an account")
+
+      cy.get(".form_content > .form-group > label").should(
+        "have.text",
+        "Email address"
+      )
+
+      cy.get("#email_create").should("be.visible")
+
+      cy.get("#SubmitCreate  > span")
+        .should("be.visible")
+        .and("include.text", "Create an account")
+    })
+  })
+
   context(
-    "As a user I want to be able to register an account so that I can log in and access my account later:",
+    "As a user, I want to be able to register an account, so that I can log in and access my account later: ",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -15,29 +44,6 @@ describe("Authentication - Register", () => {
           .should("be.visible")
           .and("include.text", "Sign in")
           .click()
-      })
-
-      it("should display all the necessary elements", () => {
-        cy.url().should("include", "controller=authentication")
-
-        cy.get(".breadcrumb").should("contain.text", "Authentication")
-
-        cy.get(".page-heading").should("contain.text", "Authentication")
-
-        cy.get("#create-account_form").within(() => {
-          cy.get(".page-subheading").should("have.text", "Create an account")
-
-          cy.get(".form_content > .form-group > label").should(
-            "have.text",
-            "Email address"
-          )
-
-          cy.get("#email_create").should("be.visible")
-
-          cy.get("#SubmitCreate  > span")
-            .should("be.visible")
-            .and("include.text", "Create an account")
-        })
       })
 
       it("should register an account", () => {
@@ -115,7 +121,7 @@ describe("Authentication - Register", () => {
   )
 
   context(
-    "As a user I want descriptive error labels to be displayed on email form so that I know which data to input:",
+    "As a user, I want descriptive error labels to be displayed on email form, so that I know which data to input: ",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -146,7 +152,7 @@ describe("Authentication - Register", () => {
   )
 
   context(
-    "As a webmaster I want user that try to register with an existing email to be denied access so that they need to add an unique email:",
+    "As a webmaster, I want user that tries to register with an existing email to be denied access, so that they need to add an unique email:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -182,7 +188,7 @@ describe("Authentication - Register", () => {
   )
 
   context(
-    "As a user I want descriptive error labels to be displayed on register form so that I know which data to input:							",
+    "As a user, I want descriptive error labels to be displayed on register form, so that I know which data to input:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
