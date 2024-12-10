@@ -50,9 +50,68 @@ _Low prio_
 - Main Page
 - Footer
 
-### 3. Create User Stories for each of the buckets of functionality:
+### 4. Create User Stories for each of the buckets of functionality:
 
-#### Checkout:
+Each bucket of functionality will be made of a _Description_ where the specific functionality is described, followed by _User Stories_ of such functinality.
+
+These in turn are compromised of at least as many _Test Cases_ derived from them.
+
+In the wiki lists these test case names can be found beneath the user story they belong to.
+
+Each test case name will represent a _test case in a spreadsheet_(complete with test data, test steps and expected and actual resutls) AND a _test script in a test suit_(complete with test data, automated test steps and test assertions).
+
+Buckets of functionality can then be broken down the following way:
+
+- Bucket of functionality:
+
+  - User Stories:
+
+    - Test cases (spreadsheet):
+
+      - Test data
+      - Test steps
+      - Expected and actual results
+
+    - Test scripts (code):
+      - Test data
+      - Automated test steps
+      - Automated test assertions
+
+You can click on the links below. Each bucket of functionality will link to their own wiki page, where their description, user stories and test case names are displayed. At the bottom of each wiki page there are links to both the spreadsheet test cases and the test scripts representing them.
+
+_High Prio Buckets_
+
+- [Checkout](https://github.com/manuel12/automation-practice/wiki/Checkout):
+
+  - [Shopping Cart](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---shopping-cart-summary)
+  - [Sign In](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---sign-in)
+  - [Address](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---address)
+  - [Shipping](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---shipping)
+  - [Payment](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---payment)
+
+- [Shopping Cart](https://github.com/manuel12/automation-practice/wiki/Shopping-Cart)
+
+- [Product Detail Page](<https://github.com/manuel12/automation-practice/wiki/Product-Detail-Page-(PDP)>)
+
+- [Authentication](https://github.com/manuel12/automation-practice/wiki/Authentication)
+
+- [Catalogue](https://github.com/manuel12/automation-practice/wiki/Catalogue)
+
+- [Search](https://github.com/manuel12/automation-practice/wiki/Search)
+
+_Low Prio Buckets_
+
+- [My Account](https://github.com/manuel12/automation-practice/wiki/-Account)
+
+- [Contact Us](https://github.com/manuel12/automation-practice/wiki/Contact-Us)
+
+- [Subscribe](https://github.com/manuel12/automation-practice/wiki/Subscribe)
+
+- [Main Page](https://github.com/manuel12/automation-practice/wiki/Main-Page)
+
+- [Footer](https://github.com/manuel12/automation-practice/wiki/Footer)
+
+<!-- #### Checkout:
 
 _Checkout - Shopping Cart Summary:_
 
@@ -124,4 +183,4 @@ _Authentication - Register_
 
 #### Footer:
 
-[(See User Stories)](https://github.com/manuel12/automation-practice/wiki/Authentication#register) [(See test cases)](https://docs.google.com/spreadsheets/d/1kpXr_fUrFI_Shkw83WUotIL5QqlGDOvn_Qg5z7SKuLU/edit?gid=618115181#gid=618115181) [(See test code)](https://github.com/manuel12/automation-practice/blob/master/cypress/e2e/automation-practice/auth-register.cy.js)
+[(See User Stories)](https://github.com/manuel12/automation-practice/wiki/Authentication#register) [(See test cases)](https://docs.google.com/spreadsheets/d/1kpXr_fUrFI_Shkw83WUotIL5QqlGDOvn_Qg5z7SKuLU/edit?gid=618115181#gid=618115181) [(See test code)](https://github.com/manuel12/automation-practice/blob/master/cypress/e2e/automation-practice/auth-register.cy.js) -->
