@@ -5,8 +5,42 @@ const unregisteredUserCredentials = require("../../fixtures/unregistered-credent
 const invalidUserCredentials = require("../../fixtures/invalid-credentials.json")
 
 describe("Authentication - Login", () => {
+  beforeEach(() => {
+    cy.visit("http://www.automationpractice.pl/")
+
+    cy.get(".login").should("be.visible").and("include.text", "Sign in").click()
+  })
+
+  it("should display all the necessary elements", () => {
+    cy.url().should("include", "controller=authentication")
+
+    cy.get(".breadcrumb").should("contain.text", "Authentication")
+
+    cy.get(".page-heading").should("contain.text", "Authentication")
+
+    cy.get("#login_form").within(() => {
+      cy.get(".page-subheading").should("have.text", "Already registered?")
+
+      cy.get(":nth-child(1) > label").should("have.text", "Email address")
+
+      cy.get("#email").should("be.visible")
+
+      cy.get(":nth-child(2) > label").should("have.text", "Password")
+
+      cy.get("#passwd").should("be.visible")
+
+      cy.get(".lost_password")
+        .should("be.visible")
+        .and("include.text", "Forgot your password?")
+
+      cy.get("#SubmitLogin > span")
+        .should("be.visible")
+        .and("include.text", "Sign in")
+    })
+  })
+
   context(
-    "As a user I want to be able to login with an existing account so that I can preserve my user data: ",
+    "As a user, I want to be able to login with an existing account, so that I can preserve my user data:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -15,34 +49,6 @@ describe("Authentication - Login", () => {
           .should("be.visible")
           .and("include.text", "Sign in")
           .click()
-      })
-
-      it("should display all the necessary elements", () => {
-        cy.url().should("include", "controller=authentication")
-
-        cy.get(".breadcrumb").should("contain.text", "Authentication")
-
-        cy.get(".page-heading").should("contain.text", "Authentication")
-
-        cy.get("#login_form").within(() => {
-          cy.get(".page-subheading").should("have.text", "Already registered?")
-
-          cy.get(":nth-child(1) > label").should("have.text", "Email address")
-
-          cy.get("#email").should("be.visible")
-
-          cy.get(":nth-child(2) > label").should("have.text", "Password")
-
-          cy.get("#passwd").should("be.visible")
-
-          cy.get(".lost_password")
-            .should("be.visible")
-            .and("include.text", "Forgot your password?")
-
-          cy.get("#SubmitLogin > span")
-            .should("be.visible")
-            .and("include.text", "Sign in")
-        })
       })
 
       it("should login with an existing account", () => {
@@ -78,7 +84,7 @@ describe("Authentication - Login", () => {
   )
 
   context(
-    "As a webmaster I want a user trying to login with  unregister but valid credentials to be denied access:",
+    "As a webmaster, I want a user trying to login with unregistered but valid credentials to be denied access:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -111,7 +117,7 @@ describe("Authentication - Login", () => {
   )
 
   context(
-    "As a user I want descriptive error labels to be displayed on login formm so that I know which data to input:",
+    "As a user, I want descriptive error labels to be displayed on login form, so that I know which data to input:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -182,7 +188,7 @@ describe("Authentication - Login", () => {
       )
     })
 
-    it.only("should consider any email with '@' as valid", () => {
+    it("should consider any email with '@' as valid", () => {
       cy.get("#email").type("randomValidEmail@gmail.com").blur()
       cy.get("#login_form > .form_content > :nth-child(1)").should(
         "have.class",
