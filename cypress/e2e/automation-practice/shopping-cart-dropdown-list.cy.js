@@ -8,7 +8,7 @@ const {
 
 describe("Shopping Cart - Dropdown List", () => {
   context(
-    "As a user I want a shopping cart on every page of the catalogue so that I can keep track of my products:",
+    "As a customer, I want a shopping cart element on every page of the site, so that I can keep track of my products:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -43,7 +43,7 @@ describe("Shopping Cart - Dropdown List", () => {
   )
 
   context(
-    "As a user I want to see a dropdown list of all my products by hovering over shopping cart so that I can keep track of my products:",
+    "As a customer, I want to see a dropdown list of all my products by hovering over shopping cart, so that I can keep track of my products:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -66,7 +66,7 @@ describe("Shopping Cart - Dropdown List", () => {
   )
 
   context(
-    "As a user I want the products in my shopping cart to display their name, quantity, size, color, and price so that I can keep track of their features:",
+    "As a customer, I want the products in my shopping cart to display their name, quantity, size, color, and price, so that I can keep track of their features:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -94,9 +94,21 @@ describe("Shopping Cart - Dropdown List", () => {
             cy.get(".cart-info")
               .should("be.visible")
               .within(() => {
-                cy.get(".product-name").should("be.visible")
+                cy.get(".product-name")
+                  .should("be.visible")
+                  // Check quantity is correct
+                  .and("include.text", "1x")
+                  // Check name is correct
+                  .and("include.text", "Printed Summer Dress")
 
-                cy.get(".product-atributes").should("be.visible")
+                cy.get(".product-atributes")
+                  .should("be.visible")
+
+                  // Check size is correct
+                  .and("include.text", "M")
+
+                  // Check color is correct
+                  .and("include.text", "Orange")
 
                 cy.get(".price").should("be.visible")
               })
@@ -111,9 +123,20 @@ describe("Shopping Cart - Dropdown List", () => {
             cy.get(".cart-info")
               .should("be.visible")
               .within(() => {
-                cy.get(".product-name").should("be.visible")
+                cy.get(".product-name")
+                  // Check quantity is correct
+                  .and("include.text", "1x")
+                  // Check name is correct
+                  .and("include.text", "Printed Summer Dress")
 
-                cy.get(".product-atributes").should("be.visible")
+                cy.get(".product-atributes")
+                  .should("be.visible")
+
+                  // Check size is correct
+                  .and("include.text", "M")
+
+                  // Check color is correct
+                  .and("include.text", "Orange")
 
                 cy.get(".price").should("be.visible")
               })
@@ -123,7 +146,7 @@ describe("Shopping Cart - Dropdown List", () => {
   )
 
   context(
-    "As a user I want to be able to remove products directly from the shopping cart list so that I can take out any products added incorrectly:",
+    "As a customer, I want to be able to remove products directly from the shopping cart list, so that I can take out any products added incorrectly:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -155,7 +178,7 @@ describe("Shopping Cart - Dropdown List", () => {
 
             cy.get('[data-id^="cart_block_product_"]')
               .should("be.visible")
-              .first(1)
+              .first()
               .within(() => {
                 cy.get(".remove_link").should("be.visible").click()
               })
@@ -175,7 +198,7 @@ describe("Shopping Cart - Dropdown List", () => {
   )
 
   context(
-    "As a user I want the price of shipping to be displayed in the shopping cart so that I don't get unexpected charges:",
+    "As a customer, I want the price of shipping to be displayed in the shopping cart, so that I don't get unexpected charges:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -196,13 +219,14 @@ describe("Shopping Cart - Dropdown List", () => {
       it("should display the price of shipping in the shopping cart", () => {
         cy.get(".cart_block_shipping_cost")
           .should("be.visible")
+          .and("have.text", "Shipping")
           .and("have.text", "$7")
       })
     }
   )
 
   context(
-    "As a user I want to see the total price of my products + shipping in the shopping cart so that I don't get unexpected charges:",
+    "As a customer, I want to see the total price of my products + shipping in the shopping cart, so that I don't get unexpected charges:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -221,7 +245,10 @@ describe("Shopping Cart - Dropdown List", () => {
       })
 
       it("should display the total price of products + shipping in the shopping cart", () => {
-        cy.get(".cart_block_total").should("be.visible").and("have.text", "$36")
+        cy.get(".cart_block_total")
+          .should("be.visible")
+          .and("have.text", "Total")
+          .and("have.text", "$36")
       })
     }
   )
