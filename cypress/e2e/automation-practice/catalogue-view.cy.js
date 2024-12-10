@@ -1,6 +1,6 @@
 describe("Catalogue - View", () => {
   context(
-    'As a user I want the catalogue to have a the option to display products in either "grid" or "list" view to see products in the way that better suits me:',
+    "As a customer, I want the catalogue to have a the option to display products in either 'grid' or 'list' view to see products in the way that better suits me:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")

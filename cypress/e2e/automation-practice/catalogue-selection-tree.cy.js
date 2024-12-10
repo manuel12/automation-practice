@@ -1,6 +1,6 @@
 describe("Catalogue - Selection Tree", () => {
   context(
-    "As a user I want the catalogue to display products so that I can see which products are available:",
+    "As a customer, I want the catalogue to display products, so that I can see which products are available:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -40,7 +40,7 @@ describe("Catalogue - Selection Tree", () => {
     }
   )
   context(
-    'As a user I want the catalogue to have a "selection tree" so that I can navigate to different sections of the catalogue more easily:',
+    "As a customer, I want the catalogue to have a 'selection tree', so that I can navigate to different sections of the catalogue more easily:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")

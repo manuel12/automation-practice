@@ -1,6 +1,6 @@
-describe("Catalogue - Sorting", () => {
+describe("Catalogue - Filters", () => {
   context(
-    'As a user I want the catalogue to have a "Categories" filter so that I can find products more easily:',
+    "As a customer, I want the catalogue to have a 'Categories' filter, so that I can find products more easily:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -60,7 +60,7 @@ describe("Catalogue - Sorting", () => {
   )
 
   context(
-    'As a user I want the catalogue to have a "Size" filter so that I can find products more easily:',
+    "As a customer, I want the catalogue to have a 'Size' filter, so that I can find products more easily:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -99,7 +99,7 @@ describe("Catalogue - Sorting", () => {
   )
 
   context(
-    'As a user I want the catalogue to have a "Color" filter so that I can find products more easily:',
+    "As a customer, I want the catalogue to have a 'Color' filter, so that I can find products more easily:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -191,7 +191,7 @@ describe("Catalogue - Sorting", () => {
   )
 
   context(
-    'As a user I want the catalogue to have a "Properties" filter so that I can find products more easily:',
+    "As a customer, I want the catalogue to have a 'Properties' filter, so that I can find products more easily:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -253,7 +253,7 @@ describe("Catalogue - Sorting", () => {
   )
 
   context(
-    'As a user I want the catalogue to have a "Compositions" filter so that I can find products more easily:',
+    "As a customer, I want the catalogue to have a 'Compositions' filter, so that I can find products more easily:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -292,7 +292,7 @@ describe("Catalogue - Sorting", () => {
   )
 
   context(
-    'As a user I want the catalogue to have a "Styles" filter so that I can find products more easily:',
+    "As a customer, I want the catalogue to have a 'Styles' filter, so that I can find products more easily:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -331,7 +331,7 @@ describe("Catalogue - Sorting", () => {
   )
 
   context(
-    'As a user I want the catalogue to have a "Availability" filter so that I can find products more easily:',
+    "As a customer, I want the catalogue to have a 'Availability' filter, so that I can find products more easily:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -360,7 +360,7 @@ describe("Catalogue - Sorting", () => {
   )
 
   context(
-    'As a user I want the catalogue to have a "Condition" filter so that I can find products more easily:',
+    "As a customer, I want the catalogue to have a 'Condition' filter, so that I can find products more easily:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -376,7 +376,7 @@ describe("Catalogue - Sorting", () => {
   )
 
   context(
-    'As a user I want the catalogue to have a "Price" filter so that I can find products more easily:',
+    "As a customer, I want the catalogue to have a 'Price' filter, so that I can find products more easily:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -384,6 +384,7 @@ describe("Catalogue - Sorting", () => {
       })
 
       it("should allow user to filter products by price", () => {
+        // Slide price range to display $16-$30
         cy.get(".ui-slider-handle")
           .eq(1)
           .trigger("mousedown", { which: 1, pageX: 300, pageY: 0 })
@@ -392,6 +393,7 @@ describe("Catalogue - Sorting", () => {
 
         cy.get(".product-container").should("have.length", 5)
 
+        // Slide price range to display $30-$53
         cy.get(".ui-slider-handle")
           .first()
           .trigger("mousedown", { which: 1, pageX: 0, pageY: 0 })
