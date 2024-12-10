@@ -1,45 +1,51 @@
 /// <reference types="cypress" />
 
 describe("Produc Detail Page", () => {
+  beforeEach(() => {
+    cy.visit("http://www.automationpractice.pl/")
+
+    cy.get("#block_top_menu").contains("Women").click()
+  })
+
+  it("should display all the necessary elements", () => {
+    cy.get(
+      ".product-container > .left-block > .product-image-container > a.product_img_link"
+    )
+      .eq(1)
+      .click("top") // Click top to avoid Quick View button
+
+    cy.get("#bigpic").should("be.visible")
+
+    cy.get("h1").should("be.visible")
+
+    cy.get("#product_reference").should("be.visible")
+
+    cy.get("#product_condition").should("be.visible")
+
+    cy.get("#short_description_content > p").should("be.visible")
+
+    cy.get("#availability_value").should("be.visible")
+
+    cy.get(".socialsharing_product").should("be.visible")
+
+    cy.get(".sendtofriend").should("be.visible")
+
+    cy.get("#our_price_display").should("be.visible")
+
+    cy.get(":nth-child(2) > .attribute_list").should("be.visible")
+
+    cy.get("#color_to_pick_list").should("be.visible")
+
+    cy.get(".box-security > .img-responsive").should("be.visible")
+  })
+
   context(
-    "As a user I to be able to access product detail pages so that I know all the characteristics of the products:",
+    "As a customer, I want to be able to access product detail pages, so that I know all the characteristics of the products:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
 
         cy.get("#block_top_menu").contains("Women").click()
-      })
-
-      it("should display all the necessary elements", () => {
-        cy.get(
-          ".product-container > .left-block > .product-image-container > a.product_img_link"
-        )
-          .eq(1)
-          .click("top") // Click top to avoid Quick View button
-
-        cy.get("#bigpic").should("be.visible")
-
-        cy.get("h1").should("be.visible")
-
-        cy.get("#product_reference").should("be.visible")
-
-        cy.get("#product_condition").should("be.visible")
-
-        cy.get("#short_description_content > p").should("be.visible")
-
-        cy.get("#availability_value").should("be.visible")
-
-        cy.get(".socialsharing_product").should("be.visible")
-
-        cy.get(".sendtofriend").should("be.visible")
-
-        cy.get("#our_price_display").should("be.visible")
-
-        cy.get(":nth-child(2) > .attribute_list").should("be.visible")
-
-        cy.get("#color_to_pick_list").should("be.visible")
-
-        cy.get(".box-security > .img-responsive").should("be.visible")
       })
 
       it("should be able to access product detail page by clicking on product image on catalogue", () => {
@@ -90,7 +96,7 @@ describe("Produc Detail Page", () => {
   )
 
   context(
-    "As a user I want to see the product's name, reference, condition and description so that I know the state of the product:",
+    "As a customer, I want to see the product's name, reference, condition and description, so that I know the state of the product:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -126,21 +132,21 @@ describe("Produc Detail Page", () => {
   )
 
   context(
-    "As a user I want to see if product is in stock or not so that I can know what I can buy:",
+    "As a customer, I want to see if product is in stock or not, so that I can know what I can buy::",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
 
         cy.get("#block_top_menu").contains("Women").click()
-      })
 
-      it("should display 'in stock' text if product is available", () => {
         cy.get(
           ".product-container > .left-block > .product-image-container > a.product_img_link"
         )
           .eq(4)
           .click("top") // Click top to avoid Quick View button
+      })
 
+      it("should display 'In Stock' text if product is available", () => {
         cy.wait(500)
         cy.get("#group_1").select("M")
 
@@ -153,12 +159,6 @@ describe("Produc Detail Page", () => {
       })
 
       it("should display 'This product is no longer in stock with those attributes but is available with others.' text if product not available", () => {
-        cy.get(
-          ".product-container > .left-block > .product-image-container > a.product_img_link"
-        )
-          .eq(4)
-          .click("top") // Click top to avoid Quick View button
-
         cy.get("#availability_value")
           .should("be.visible")
           .and(
@@ -168,12 +168,6 @@ describe("Produc Detail Page", () => {
       })
 
       it("should display 'This product is no longer in stock' text if product not available", () => {
-        cy.get(
-          ".product-container > .left-block > .product-image-container > a.product_img_link"
-        )
-          .eq(0)
-          .click("top") // Click top to avoid Quick View button
-
         cy.get("#availability_value")
           .should("be.visible")
           .and("have.text", "This product is no longer in stock")
@@ -182,7 +176,7 @@ describe("Produc Detail Page", () => {
   )
 
   context(
-    "As a user I want to see how many items of each product in stock are available so I can know when to order:",
+    "As a customer, I want to see how many items of each product in stock are available so I can know when to order:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -219,7 +213,7 @@ describe("Produc Detail Page", () => {
   )
 
   context(
-    "As a user I want to see social buttons so that I can share products I like with my friends:",
+    "As a customer, I want to see social buttons, so that I can share products I like with my friends:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -247,7 +241,7 @@ describe("Produc Detail Page", () => {
   )
 
   context(
-    "As a user I want to see 'Send to a friend' button so that I can email a friend this product:",
+    "As a customer, I want to see 'Send to a friend' button, so that I can email a friend this product:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -270,7 +264,7 @@ describe("Produc Detail Page", () => {
   )
 
   context(
-    "As a user I want to see 'Print' button so that I can print this product detail page:",
+    "As a customer, I want to see 'Print' button, so that I can print this product detail page:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -291,7 +285,7 @@ describe("Produc Detail Page", () => {
   )
 
   context(
-    "As a user I want to see a data sheet of product information such as compositions, styles, properties so that I can know the features of the product:",
+    "As a customer, I want to see a data sheet of product information such as compositions, styles, properties, so that I can know the features of the product:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -323,7 +317,7 @@ describe("Produc Detail Page", () => {
   )
 
   context(
-    "As a user I want to see the product's price so that I can know how much I will be charged:",
+    "As a customer, I want to see the product's price, so that I can know how much I will be charged:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -346,7 +340,7 @@ describe("Produc Detail Page", () => {
   )
 
   context(
-    "As a user I want to see the product's discount in case it has one so that I can know how much I will be charged:",
+    "As a customer, I want to see the product's discount in case it has one, so that I can know how much I will be charged:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -381,7 +375,7 @@ describe("Produc Detail Page", () => {
   )
 
   context(
-    "As a user I want to see the product quantity and controls to increase or decrease it so that I can select as many products as I want:",
+    "As a customer, I want to see the product quantity and controls to increase or decrease it, so that I can select as many products as I want:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
@@ -428,7 +422,7 @@ describe("Produc Detail Page", () => {
   )
 
   context(
-    "As a user I want to see the product size and controls to increase or decrease it so that I can select the product best fitted to me:",
+    "As a customer, I want to see the product size and controls to increase or decrease it, so that I can select the product best fitted to me:",
     () => {
       beforeEach(() => {
         cy.visit("http://www.automationpractice.pl/")
