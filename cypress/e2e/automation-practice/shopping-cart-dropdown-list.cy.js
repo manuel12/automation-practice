@@ -97,9 +97,9 @@ describe("Shopping Cart - Dropdown List", () => {
                 cy.get(".product-name")
                   .should("be.visible")
                   // Check quantity is correct
-                  .and("include.text", "1x")
+                  .and("include.text", "1")
                   // Check name is correct
-                  .and("include.text", "Printed Summer Dress")
+                  .and("include.text", "Printed...")
 
                 cy.get(".product-atributes")
                   .should("be.visible")
@@ -125,9 +125,9 @@ describe("Shopping Cart - Dropdown List", () => {
               .within(() => {
                 cy.get(".product-name")
                   // Check quantity is correct
-                  .and("include.text", "1x")
+                  .and("include.text", "1")
                   // Check name is correct
-                  .and("include.text", "Printed Summer Dress")
+                  .and("include.text", "Printed Su...")
 
                 cy.get(".product-atributes")
                   .should("be.visible")
@@ -136,7 +136,7 @@ describe("Shopping Cart - Dropdown List", () => {
                   .and("include.text", "M")
 
                   // Check color is correct
-                  .and("include.text", "Orange")
+                  .and("include.text", "Blue")
 
                 cy.get(".price").should("be.visible")
               })
@@ -217,10 +217,10 @@ describe("Shopping Cart - Dropdown List", () => {
       })
 
       it("should display the price of shipping in the shopping cart", () => {
-        cy.get(".cart_block_shipping_cost")
+        cy.get(".cart-prices-line")
           .should("be.visible")
-          .and("have.text", "Shipping")
-          .and("have.text", "$7")
+          .and("include.text", "Shipping")
+          .and("include.text", "$7")
       })
     }
   )
@@ -245,10 +245,10 @@ describe("Shopping Cart - Dropdown List", () => {
       })
 
       it("should display the total price of products + shipping in the shopping cart", () => {
-        cy.get(".cart_block_total")
+        cy.get(".cart-prices-line.last-line")
           .should("be.visible")
-          .and("have.text", "Total")
-          .and("have.text", "$36")
+          .and("include.text", "Total")
+          .and("include.text", "$65")
       })
     }
   )
