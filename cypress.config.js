@@ -5,6 +5,7 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    baseUrl: "http://www.automationpractice.pl/",
     specPattern: "cypress/e2e/automation-practice/**/*.{js,jsx,ts,tsx}",
     experimentalRunAllSpecs: true,
     viewportWidth: 1200,
