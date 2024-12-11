@@ -1,60 +1,122 @@
-# Automation Practice - Cypress Tests
+# Automation Practice Test Plan
 
-The Automation Exercise [website](http://www.automationpractice.pl/) is a full-fledged website built for automation practice purposes.
+## Description:
 
-This project aims to complete all the tests cases in this readme file.
+The [Automation Practice](http://www.automationpractice.pl/) website is a full-fledged website built for automation practice purposes.
 
-It implements all such tests cases using the Cypress testing framework. The test cases are outlined below.
+This project aims to showcase the test process used on Automation Practice including the creation of test documentation, such as _user stories_ and the different _test types_ and _test cases_ derived from them, including e2e, functional, performance, accessibility and visual tests.
 
-# TEST CASE LIST
+It implements all such tests cases using the Cypress testing framework.
 
-✅ = Automated Test Case implemented
+## Testing Process:
 
-- ✅ TC.01 Register User
-- ✅ TC.02 Login User with correct email and password
-- ✅ TC.03 Login User with incorrect email and password
-- ✅ TC.04 Logout User
-- ✅ TC.05 Register User with existing email
-- ✅ TC.06 Contact Us Form
-- ✅ TC.07 Verify All Products and product detail page
-- ✅ TC.08 Search Product
-- ✅ TC.09 Verify Subscription in home page
-- ✅ TC.10 Verify Subscription in Cart page
-- ✅ TC.11 Add Products in Cart
-- ✅ TC.12 Verify Product quantity in Cart
-- ✅ TC.13 Place Order: Login before Checkout
-- ✅ TC.14 Remove Products From Cart
-- ✅ TC.15 View Category Products
-- ✅ TC.16 View & Cart Brand Products
-- ✅ TC.17 Search Products and Verify Cart After Login
+In order to do a thorough testing the the functionality present in the Automation Practice website these steps have been taken:
 
-[(See test cases)](https://docs.google.com/spreadsheets/d/1JFgnbj6JF42CreaftZL5_30DClLJKdU7ImPi0taLxd8/edit?gid=0#gid=0) [(See test code)](cypress/e2e/automation-practice/automation-practice.cy.js)
+1. Create an account on the application
+2. Do exploratory testing / use the application as an user would
+3. Divide the app into different buckets of functionality
+4. Prioritize buckets of functionality depending on risk
+5. Create User Stories for each of the buckets of functionality
+6. Create Test Cases for each of the User Stories
+7. Create detailed test cases in a spreadsheet
+8. Create automated test scripts from detailed test cases (only high prio)
 
-## Installation - Cypress
+### 1. Create an account on the application: (_DONE_)
 
-For installing cypress cd to the project's root folder and run:
+### 2. Do exploratory testing / use the application as an user would: (_DONE_)
 
-    npm install
+### 3. Divide the app into different buckets of functionality: (_DONE_)
 
-## Running tests
+#### The following buckets of functionality have been indentified:
 
-For opening cypress client cd to the project's root folder and run:
+- Main Page
+- Authentication
+- My Account
+- Contact Us
+- Search
+- Catalogue
+- Shopping Cart
+- Product Detail Page(PDP)
+- Checkout
+- Subscribe
+- Footer
 
-    npx cypress open
+### 4. Prioritize buckets of functionality depening on risk: (_DONE_)
 
-## Features
+_High prio_
 
- - Parsing and calculation of prices total in checkout
- - Test pyramid followed: 70/20/10
- - Boundary validation tests
- - Equivalence partitioning tests
- - UI functional tests(mocked & stubbed)
- - End- to- end tests
- - Accessibility tests
- - Responsiveness test
- - Visual tests
+- Checkout
+- Shopping Cart
+- Product Detail Page(PDP)
+- Authentication
+- Catalogue
+- Search
 
-## Uses
+_Low prio_
 
-- Cypress
-- Prettier
+- My Account
+- Contact Us
+- Subscribe
+- Main Page
+- Footer
+
+### 5. Create User Stories for each of the buckets of functionality: (_DONE_)
+
+Each bucket of functionality will be made of a _Description_ where the specific functionality is described, followed by _User Stories_ of such functinality.
+
+These in turn are compromised of at least as many _Test Cases_ derived from them.
+
+In the wiki lists these test case names can be found beneath the user story they belong to.
+
+Each test case name will represent a _test case in a spreadsheet_(complete with test data, test steps and expected and actual resutls) AND a _test script in a test suit_(complete with test data, automated test steps and test assertions).
+
+Buckets of functionality can then be broken down the following way:
+
+- Bucket of functionality:
+
+  - User Stories:
+
+    - Test cases (spreadsheet):
+
+      - Test data
+      - Test steps
+      - Expected and actual results
+
+    - Test scripts (code):
+      - Test data
+      - Automated test steps
+      - Automated test assertions
+
+You can click on the links below. Each bucket of functionality will link to their own wiki page, where their description, user stories and test case names are displayed. At the bottom of each wiki page there are links to both the spreadsheet test cases and the test scripts representing them.
+
+_High Prio Buckets_
+
+- [Checkout](https://github.com/manuel12/automation-practice/wiki/Checkout):
+
+  - [Shopping Cart](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---shopping-cart-summary)
+  - [Sign In](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---sign-in)
+  - [Address](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---address)
+  - [Shipping](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---shipping)
+  - [Payment](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---payment)
+
+- [Shopping Cart](https://github.com/manuel12/automation-practice/wiki/Shopping-Cart)
+
+- [Product Detail Page](<https://github.com/manuel12/automation-practice/wiki/Product-Detail-Page-(PDP)>)
+
+- [Authentication](https://github.com/manuel12/automation-practice/wiki/Authentication)
+
+- [Catalogue](https://github.com/manuel12/automation-practice/wiki/Catalogue)
+
+- [Search](https://github.com/manuel12/automation-practice/wiki/Search)
+
+_Low Prio Buckets_
+
+- [My Account](https://github.com/manuel12/automation-practice/wiki/-Account)
+
+- [Contact Us](https://github.com/manuel12/automation-practice/wiki/Contact-Us)
+
+- [Subscribe](https://github.com/manuel12/automation-practice/wiki/Subscribe)
+
+- [Main Page](https://github.com/manuel12/automation-practice/wiki/Main-Page)
+
+- [Footer](https://github.com/manuel12/automation-practice/wiki/Footer)
