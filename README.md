@@ -10,7 +10,7 @@ It implements all such tests cases using the Cypress testing framework.
 
 ## Testing Process:
 
-In order to do a thorough testing the the functionality present in the Automation Practice website these steps have been taken:
+In order to do a thorough testing of the functionality present in the Automation Practice website these steps have been taken:
 
 1. Create an account on the application
 2. Do exploratory testing / use the application as an user would
@@ -120,3 +120,16 @@ _Low Prio Buckets_
 - [Main Page](https://github.com/manuel12/automation-practice/wiki/Main-Page)
 
 - [Footer](https://github.com/manuel12/automation-practice/wiki/Footer)
+
+## Features:
+
+- Equivalence partitioning tests
+- Boundary value analysis tests
+- UI functional tests
+- Accessibility tests (pending)
+- Responsiveness tests (pending)
+- Visual tests (pending)
+
+## Uses
+
+- Cypress
