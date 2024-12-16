@@ -3,7 +3,7 @@
 const userCredentials = require("../../fixtures/user-credentials.json")
 const { printedSummerDressInOrange } = require("../../fixtures/products.json")
 
-describe("Checkout - Shipping", () => {
+describe("Checkout - Payment", () => {
   it("should display all the necessary elements", () => {
     cy.visit("http://www.automationpractice.pl/")
 
