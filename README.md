@@ -4,7 +4,7 @@
 
 The [Automation Practice](http://www.automationpractice.pl/) website is a full-fledged website built for automation practice purposes.
 
-This project aims to showcase the test process used on Automation Practice including the creation of test documentation, such as _user stories_ and the different _test types_ and _test cases_ derived from them, including e2e, functional, performance, accessibility and visual tests.
+This project aims to showcase the test process used on Automation Practice including the creation of test documentation, such as user stories and the different test cases derived from them. The tests include functional and e2e tests. As well as different test types accessibility, performance and visual tests.
 
 It implements all such tests cases using the Cypress testing framework.
 
@@ -16,7 +16,7 @@ In order to do a thorough testing of the functionality present in the Automation
 2. Do exploratory testing / use the application as an user would
 3. Divide the app into different buckets of functionality
 4. Prioritize buckets of functionality depending on risk
-5. Create User Stories for each of the buckets of functionality
+5. Create a wiki section that includes Description and User Stories for each of the buckets of functionality
 6. Create Test Cases for each of the User Stories
 7. Create detailed test cases in a spreadsheet
 8. Create automated test scripts from detailed test cases (only high prio)
@@ -62,13 +62,13 @@ _Low prio_
 
 ### 5. Create User Stories for each of the buckets of functionality: (_DONE_)
 
-Each bucket of functionality will be made of a _Description_ where the specific functionality is described, followed by _User Stories_ of such functinality.
+Each bucket of functionality will be made of a description where the specific functionality is described, followed by user stories of such functinality.
 
-These in turn are compromised of at least as many _Test Cases_ derived from them.
+The user stories in turn are composed of at least as many test cases derived from them.
 
 In the wiki lists these test case names can be found beneath the user story they belong to.
 
-Each test case name will represent a _test case in a spreadsheet_(complete with test data, test steps and expected and actual resutls) AND a _test script in a test suit_(complete with test data, automated test steps and test assertions).
+Each test case name will represent a _test case in a spreadsheet_ (complete with test data, test steps and expected and actual resutls) AND a _test script in a test suit_ (complete with test data, automated test steps and test assertions).
 
 Buckets of functionality can then be broken down the following way:
 
