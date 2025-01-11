@@ -2,11 +2,13 @@
 
 ## Description:
 
-The [Automation Practice](http://www.automationpractice.pl/) website is a full-fledged website built for automation practice purposes.
+This project aims to showcase the process used to test the website _Automation Practice_, including the creation of all the corresponding documentation, such as wikis, describing each of the modules of functionality that make up the application, the user stories outlining such funcitonality, and the test cases derived from them.
 
-This project aims to showcase the test process used on Automation Practice including the creation of test documentation, such as user stories and the different test cases derived from them. The tests include functional and e2e tests. As well as different test types accessibility, performance and visual tests.
+The high priority test cases have also been translated into test scripts and automated. This project implements all such tests scripts using the Cypress testing framework.
 
-It implements all such tests cases using the Cypress testing framework.
+The tests include functional and e2e tests. As well as different test types such as accessibility, performance and visual tests.
+
+_Note:_ The [Automation Practice](http://www.automationpractice.pl/) website is a full-fledged website built for QA and test automation practice purposes.
 
 ## Testing Process:
 
@@ -16,16 +18,17 @@ In order to do a thorough testing of the functionality present in the Automation
 2. Do exploratory testing / use the application as an user would
 3. Divide the app into different buckets of functionality
 4. Prioritize buckets of functionality depending on risk
-5. Create a wiki section that includes Description and User Stories for each of the buckets of functionality
-6. Create Test Cases for each of the User Stories
-7. Create detailed test cases in a spreadsheet
-8. Create automated test scripts from detailed test cases (only high prio)
+5. Create a wiki section for each of the buckets of functionality
+6. On each wiki section add a description and user stories outlining all the corresponding functionality
+7. Create test cases for each of the user stories
+8. Create detailed test cases in a spreadsheet
+9. Create automated test scripts from detailed test cases (only high prio)
 
-### 1. Create an account on the application: (_DONE_)
+### 1. Create an account on the application: ✅
 
-### 2. Do exploratory testing / use the application as an user would: (_DONE_)
+### 2. Do exploratory testing / use the application as an user would: ✅
 
-### 3. Divide the app into different buckets of functionality: (_DONE_)
+### 3. Divide the app into different buckets of functionality: ✅
 
 #### The following buckets of functionality have been indentified:
 
@@ -41,7 +44,7 @@ In order to do a thorough testing of the functionality present in the Automation
 - Subscribe
 - Footer
 
-### 4. Prioritize buckets of functionality depening on risk: (_DONE_)
+### 4. Prioritize buckets of functionality depening on risk: ✅
 
 _High prio_
 
@@ -60,17 +63,21 @@ _Low prio_
 - Main Page
 - Footer
 
-### 5. Create User Stories for each of the buckets of functionality: (_DONE_)
+### 5. Create a wiki section for each of the buckets of functionality: ✅
 
-Each bucket of functionality will be made of a description where the specific functionality is described, followed by user stories of such functinality.
+Each bucket of functionality will have it's own wiki section in this repostitory.
+
+### 6. On each wiki section add a description and user stories outlining all the corresponding functionality: ✅
+
+The wiki section will be made of a description where the specific functionality is described, followed by user stories related to such functionality.
 
 The user stories in turn are composed of at least as many test cases derived from them.
 
 In the wiki lists these test case names can be found beneath the user story they belong to.
 
-Each test case name will represent a _test case in a spreadsheet_ (complete with test data, test steps and expected and actual resutls) AND a _test script in a test suit_ (complete with test data, automated test steps and test assertions).
+Each test case name will represent a full _test case in a spreadsheet_ (complete with test data, test steps and expected and actual resutls, etc) and a _test script in a test suite_ (complete with test data, automated test steps and test assertions).
 
-Buckets of functionality can then be broken down the following way:
+So going from each bucket of functionality down to the user stories and then the test cases derived from them can be visualized the following way:
 
 - Bucket of functionality:
 
@@ -89,7 +96,7 @@ Buckets of functionality can then be broken down the following way:
 
 You can click on the links below. Each bucket of functionality will link to their own wiki page, where their description, user stories and test case names are displayed. At the bottom of each wiki page there are links to both the spreadsheet test cases and the test scripts representing them.
 
-_High Prio Buckets_
+_High Prio Buckets of Functionality_
 
 - [Checkout](https://github.com/manuel12/automation-practice/wiki/Checkout):
 
@@ -109,7 +116,7 @@ _High Prio Buckets_
 
 - [Search](https://github.com/manuel12/automation-practice/wiki/Search)
 
-_Low Prio Buckets_
+_Low Prio Buckets of Functionality_
 
 - [My Account](https://github.com/manuel12/automation-practice/wiki/-Account)
 
