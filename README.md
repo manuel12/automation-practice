@@ -73,7 +73,7 @@ At the bottom of each wiki page there are links to both the spreadsheet test cas
 
 _High Prio Buckets of Functionality_
 
-- [Checkout](https://github.com/manuel12/automation-practice/wiki/Checkout):
+- Checkout:
 
   - [Shopping Cart](https://github.com/manuel12/automation-practice/wiki/Checkout-%E2%80%90-Shopping-Cart)
   - [Sign In](https://github.com/manuel12/automation-practice/wiki/Checkout-%E2%80%90-Sign-In)
