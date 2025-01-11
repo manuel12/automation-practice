@@ -303,6 +303,70 @@ describe("Checkout -Shopping Cart", () => {
   )
 
   context(
+    "As a customer, I want the total price of the order to be correctly updated when changing product quantity, so that I can ensure there are no unexpected charges:",
+    () => {
+      beforeEach(() => {
+        cy.visit("http://www.automationpractice.pl/")
+
+        cy.loginUser(userCredentials)
+
+        cy.addProductToCart(printedSummerDressInOrange)
+
+        cy.contains("Proceed to checkout").click()
+      })
+
+      it("should update total order price after increasing product quantity", () => {
+        cy.get("tr.cart_item").should("have.length", 1)
+
+        // Check product price
+        cy.get('[id^="total_product_price_"]')
+          .should("be.visible")
+          .and("include.text", "$29")
+
+        // Check total order price
+        cy.get("#total_price").should("be.visible").and("include.text", "$36")
+
+        // Add +1 to quantity
+        cy.get('[id^="cart_quantity_up_"]').click()
+
+        // Check product price
+        cy.get('[id^="total_product_price_"]')
+          .should("be.visible")
+          .and("include.text", "$58")
+
+        // Check total order price
+        cy.get("#total_price").should("be.visible").and("include.text", "$65")
+      })
+
+      it("should update total order price after decreasing product quantity", () => {
+        cy.get("tr.cart_item").should("have.length", 1)
+
+        // Add +1 to quantity
+        cy.get('[id^="cart_quantity_up_"]').click()
+
+        // Check product price
+        cy.get('[id^="total_product_price_"]')
+          .should("be.visible")
+          .and("include.text", "$58")
+
+        // Check total order price
+        cy.get("#total_price").should("be.visible").and("include.text", "$65")
+
+        // Add -1 to quantity
+        cy.get('[id^="cart_quantity_down_"]').click()
+
+        // Check product price
+        cy.get('[id^="total_product_price_"]')
+          .should("be.visible")
+          .and("include.text", "$29")
+
+        // Check total order price
+        cy.get("#total_price").should("be.visible").and("include.text", "$36")
+      })
+    }
+  )
+
+  context(
     "As a customer, I want to see my delivery address in the shopping cart summary, so that I can confirm correct address:",
     () => {
       beforeEach(() => {
