@@ -2,9 +2,9 @@
 
 ## Description:
 
-This project aims to showcase the process used to test the website _Automation Practice_, including the creation of all the corresponding test documentation, such as wikis, describing each of the modules of functionality that make up the application, the user stories outlining such funcitonality, and the test cases derived from them.
+This project aims to showcase the process used to test the website _Automation Practice_, including the creation of all the corresponding test documentation, such as wikis, describing each of the modules of functionality that make up the application, the user stories outlining such functionality, and the test cases derived from them.
 
-The high priority test cases have also been translated into test scripts and automated. This project implements all such tests scripts using the Cypress testing framework.
+The high priority test cases have also been translated into test scripts and automated. This project implements all such test scripts using the Cypress testing framework.
 
 The tests include functional and e2e tests. As well as different test types such as accessibility, performance and visual tests.
 
@@ -32,7 +32,7 @@ I will now take you step by step and show you how each step has been taken.
 
 ### 3. Divide the app into different buckets of functionality: ✅
 
-#### The following buckets of functionality have been indentified:
+#### The following buckets of functionality have been identified:
 
 - Main Page
 - Authentication
@@ -46,7 +46,7 @@ I will now take you step by step and show you how each step has been taken.
 - Subscribe
 - Footer
 
-### 4. Prioritize buckets of functionality depening on risk: ✅
+### 4. Prioritize buckets of functionality depending on risk: ✅
 
 _High prio_
 
@@ -67,7 +67,7 @@ _Low prio_
 
 ### 5. Create a wiki section for each of the buckets of functionality: ✅
 
-Each bucket of functionality has it's own wiki section in this repostitory, where their description, user stories and test case names are displayed.
+Each bucket of functionality has its own wiki section in this repository, where their description, user stories and test case names are displayed.
 
 At the bottom of each wiki page there are links to both the spreadsheet test cases and the test scripts belonging to them:
 
@@ -111,9 +111,9 @@ Example: [Authentication wiki](https://github.com/manuel12/automation-practice/w
 
 As you can see from the above example, in which the wiki for the _Authentication - Login_ module of functionality is displayed, each wiki section is made of a description(displayed below Login heading), followed by user stories and test cases related to such functionality.
 
-The user stories in turn have of at least as many test cases derived from them. Test case names can be found beneath the user story they belong to. Some test cases, like the first test case _"should display all necessary elements"_ are standalone and do not belong to any user story.
+The user stories in turn have at least as many test cases derived from them. Test case names can be found beneath the user story they belong to. Some test cases, like the first test case _"should display all necessary elements"_ are standalone and do not belong to any user story.
 
-Each test case name represents a full _test case in a spreadsheet_ (complete with test data, test steps and expected and actual resutls, etc):
+Each test case name represents a full _test case in a spreadsheet_ (complete with test data, test steps and expected and actual results, etc):
 ![alt text](image-2.png)
 
 And a _test script in a test suite_ (complete with test data, automated test steps and test assertions):
@@ -132,6 +132,7 @@ So going from each bucket of functionality down to the user stories and then the
       - Expected and actual results
 
     - Test scripts (code):
+
       - Test data
       - Automated test steps
       - Automated test assertions
