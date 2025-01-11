@@ -79,7 +79,11 @@ Example: [Authentication wiki](https://github.com/manuel12/automation-practice/w
 
 ![alt text](image.png)
 
-Each test case name will represent a full _test case in a spreadsheet_ (complete with test data, test steps and expected and actual resutls, etc) and a _test script in a test suite_ (complete with test data, automated test steps and test assertions).
+Each test case name will represent a full _test case in a spreadsheet_ (complete with test data, test steps and expected and actual resutls, etc):
+![alt text](image-2.png)
+
+And a _test script in a test suite_ (complete with test data, automated test steps and test assertions):
+![alt text](image-3.png)
 
 So going from each bucket of functionality down to the user stories and then the test cases derived from them can be visualized the following way:
 
