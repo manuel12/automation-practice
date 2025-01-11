@@ -75,11 +75,11 @@ _High Prio Buckets of Functionality_
 
 - [Checkout](https://github.com/manuel12/automation-practice/wiki/Checkout):
 
-  - [Shopping Cart](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---shopping-cart-summary)
-  - [Sign In](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---sign-in)
-  - [Address](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---address)
-  - [Shipping](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---shipping)
-  - [Payment](https://github.com/manuel12/automation-practice/wiki/Checkout#checkout---payment)
+  - [Shopping Cart](https://github.com/manuel12/automation-practice/wiki/Checkout-%E2%80%90-Shopping-Cart)
+  - [Sign In](https://github.com/manuel12/automation-practice/wiki/Checkout-%E2%80%90-Sign-In)
+  - [Address](https://github.com/manuel12/automation-practice/wiki/Checkout-%E2%80%90-Address)
+  - [Shipping](https://github.com/manuel12/automation-practice/wiki/Checkout-%E2%80%90-Shipping)
+  - [Payment](https://github.com/manuel12/automation-practice/wiki/Checkout-%E2%80%90-Payment)
 
 - [Shopping Cart](https://github.com/manuel12/automation-practice/wiki/Shopping-Cart)
 
@@ -93,7 +93,7 @@ _High Prio Buckets of Functionality_
 
 _Low Prio Buckets of Functionality_
 
-- [My Account](https://github.com/manuel12/automation-practice/wiki/-Account)
+- [My Account](https://github.com/manuel12/automation-practice/wiki/My-Account)
 
 - [Contact Us](https://github.com/manuel12/automation-practice/wiki/Contact-Us)
 
