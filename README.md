@@ -136,6 +136,14 @@ _Low Prio Buckets of Functionality_
 
 - [Footer](https://github.com/manuel12/automation-practice/wiki/Footer)
 
+## How to install Cypress:
+
+## How to run automated tests:
+
+## Current test report:
+
+![alt text](image-4.png)
+
 ## Features:
 
 - Equivalence partitioning tests
