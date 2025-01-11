@@ -1,8 +1,8 @@
-# Automation Practice Test Plan
+# QA Engineer Showcase: Automation Practice
 
 ## Description:
 
-This project aims to showcase the process used to test the website _Automation Practice_, including the creation of all the corresponding documentation, such as wikis, describing each of the modules of functionality that make up the application, the user stories outlining such funcitonality, and the test cases derived from them.
+This project aims to showcase the process used to test the website _Automation Practice_, including the creation of all the corresponding test documentation, such as wikis, describing each of the modules of functionality that make up the application, the user stories outlining such funcitonality, and the test cases derived from them.
 
 The high priority test cases have also been translated into test scripts and automated. This project implements all such tests scripts using the Cypress testing framework.
 
@@ -69,11 +69,15 @@ Each bucket of functionality will have it's own wiki section in this repostitory
 
 ### 6. On each wiki section add a description and user stories outlining all the corresponding functionality: ✅
 
-The wiki section will be made of a description where the specific functionality is described, followed by user stories related to such functionality.
+Each wiki section will be made of a description where the specific functionality is described, followed by user stories related to such functionality.
 
 The user stories in turn are composed of at least as many test cases derived from them.
 
 In the wiki lists these test case names can be found beneath the user story they belong to.
+
+Example: [Authentication wiki](https://github.com/manuel12/automation-practice/wiki/Authentication)
+
+![alt text](image.png)
 
 Each test case name will represent a full _test case in a spreadsheet_ (complete with test data, test steps and expected and actual resutls, etc) and a _test script in a test suite_ (complete with test data, automated test steps and test assertions).
 
