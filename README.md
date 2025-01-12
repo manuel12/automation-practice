@@ -1,4 +1,4 @@
-# QA Engineer Showcase: Automation Practice
+# QA Engineer Skill Showcase: Automation Practice
 
 ## Description:
 
@@ -114,10 +114,16 @@ As you can see from the above example, in which the wiki for the _Authentication
 The user stories in turn have at least as many test cases derived from them. Test case names can be found beneath the user story they belong to. Some test cases, like the first test case _"should display all necessary elements"_ are standalone and do not belong to any user story.
 
 Each test case name represents a full _test case in a spreadsheet_ (complete with test data, test steps and expected and actual results, etc):
-![alt text](image-2.png)
 
+![alt text](image-6.png)
 And a _test script in a test suite_ (complete with test data, automated test steps and test assertions):
-![alt text](image-3.png)
+
+<!-- ![alt text](image-3.png) -->
+
+![alt text](image-8.png)
+
+Links to both spreadsheets with test cases and test scripts can be found at the bottom of each wiki section as shown here:
+![alt text](image-9.png)
 
 So going from each bucket of functionality down to the user stories and then the test cases derived from them can be visualized the following way:
 
@@ -139,7 +145,19 @@ So going from each bucket of functionality down to the user stories and then the
 
 ## How to install Cypress:
 
+For installing cypress cd to the project's root folder and run:
+
+    npm install
+
 ## How to run automated tests:
+
+For opening cypress client cd to the project's root folder and run:
+
+    npx cypress open
+
+Or if running from the CLI:
+
+    npx cypress run
 
 ## Current test report:
 
