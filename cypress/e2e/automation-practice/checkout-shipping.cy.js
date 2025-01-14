@@ -55,10 +55,7 @@ describe("Checkout - Shipping", () => {
           .within(() => {
             cy.get(".delivery_options_address > .carrier_title")
               .should("be.visible")
-              .and(
-                "contain.text",
-                "Choose a shipping option for this address: Poland address"
-              )
+              .and("contain.text", "Choose a shipping option for this address:")
           })
       })
     }

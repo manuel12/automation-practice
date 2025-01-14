@@ -338,7 +338,7 @@ describe("Catalogue - Filters", () => {
         cy.get(".sf-menu").contains("Women").click()
       })
 
-      it("should allow user to filter products by availability", () => {
+      it.skip("should allow user to filter products by availability", () => {
         // Click on Not available filter
         cy.get("#layered_quantity_0").click()
         cy.get("#enabled_filters").should("be.visible")

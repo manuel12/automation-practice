@@ -3,7 +3,6 @@
 const userCredentials = require("../../fixtures/user-credentials.json")
 const {
   blouse,
-  smallBlouse,
   printedDressInPinkColor,
   printedSummerDressInSkyBlue
 } = require("../../fixtures/products.json")
