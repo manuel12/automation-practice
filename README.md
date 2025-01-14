@@ -107,7 +107,7 @@ _Low Prio Buckets of Functionality_
 
 Example: [Authentication wiki](https://github.com/manuel12/automation-practice/wiki/Authentication)
 
-![alt text](readme-images\authentication-wiki.png)
+![alt text](readme-images/authentication-wiki.png)
 
 As you can see from the above example, in which the wiki for the _Authentication - Login_ module of functionality is displayed, each wiki section is made of a description(displayed below Login heading), followed by user stories and test cases related to such functionality.
 
@@ -115,15 +115,15 @@ The user stories in turn have at least as many test cases derived from them. Tes
 
 Each test case name represents a full _test case in a spreadsheet_ (complete with test data, test steps and expected and actual results, etc):
 
-![alt text](readme-images\spreadsheet-test-case.png)
+![alt text](readme-images/spreadsheet-test-case.png)
 And a _test script in a test suite_ (complete with test data, automated test steps and test assertions):
 
 <!-- ![alt text](image-3.png) -->
 
-![alt text](readme-images\test-script.png)
+![alt text](readme-images/test-script.png)
 
 Links to both spreadsheets with test cases and test scripts can be found at the bottom of each wiki section as shown here:
-![alt text](readme-images\authentication-wiki-showing-bottom-links.png)
+![alt text](readme-images/authentication-wiki-showing-bottom-links.png)
 
 So going from each bucket of functionality down to the user stories and then the test cases derived from them can be visualized the following way:
 
@@ -161,7 +161,7 @@ Or if running from the CLI:
 
 ## Current test report:
 
-![alt text](readme-images\test-report.png)
+![alt text](readme-images/test-report.png)
 
 ## Features:
 
