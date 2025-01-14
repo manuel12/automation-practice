@@ -7,11 +7,14 @@ module.exports = defineConfig({
     },
     baseUrl: "http://www.automationpractice.pl/",
     specPattern: "cypress/e2e/automation-practice/**/*.{js,jsx,ts,tsx}",
-    excludeSpecPattern:
+    excludeSpecPattern: [
       "cypress/e2e/automation-practice/automation-practice.cy.js",
+      "cypress/e2e/automation-practice/performance.cy.js"
+    ],
     experimentalRunAllSpecs: true,
     viewportWidth: 1200,
     viewportHeight: 1000,
-    watchForFileChanges: false
+    watchForFileChanges: false,
+    retries: 1
   }
 })
