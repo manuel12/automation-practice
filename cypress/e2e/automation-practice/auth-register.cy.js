@@ -4,6 +4,8 @@ const userCredentials = require("../../fixtures/user-credentials.json")
 const unregisteredUserCredentials = require("../../fixtures/unregistered-credentials.json")
 const invalidUserCredentials = require("../../fixtures/invalid-credentials.json")
 
+const { generateUniqueEmail } = require("../../support/utils")
+
 describe("Authentication - Register", () => {
   beforeEach(() => {
     cy.visit("http://www.automationpractice.pl/")
@@ -47,7 +49,7 @@ describe("Authentication - Register", () => {
       })
 
       it("should register an account", () => {
-        const newEmail = "testuser1233@gmail.com"
+        const newEmail = generateUniqueEmail()
         cy.get("#email_create").type(newEmail).blur()
 
         cy.get("#create-account_form > .form_content > .form-group").should(
