@@ -20,15 +20,23 @@ In order to do a thorough testing of the functionality present in the Automation
 4. Prioritize buckets of functionality depending on risk
 5. Create a wiki section for each of the buckets of functionality
 6. On each wiki section add a description and user stories outlining all the corresponding functionality
-7. Create test cases for each of the user stories
-8. Create detailed test cases in a spreadsheet
-9. Create automated test scripts from detailed test cases (only high prio)
+7. Create smoke test suite
+8. Create e2e test suite
+9. Create test cases for each of the user stories
+10. Create detailed test cases in a spreadsheet
+11. Create automated test scripts from detailed test cases (only high prio)
 
 I will now take you step by step and show you how each step has been taken.
 
 ### 1. Create an account on the application: ✅
 
+Test account credentials:
+username: testuser@gmail.com
+password: Testpass1!
+
 ### 2. Do exploratory testing / use the application as an user would: ✅
+
+Already performed exploratory testing with said account and familiarized myself with the site.
 
 ### 3. Divide the app into different buckets of functionality: ✅
 
@@ -68,6 +76,10 @@ _Low prio_
 ### 5. Create a wiki section for each of the buckets of functionality: ✅
 
 Each bucket of functionality has its own wiki section in this repository, where their description, user stories and test case names are displayed.
+
+Note: It's important to mention that since there are no available requirement documents outlining the functionality of this site I will create user stories and test cases based on the obvious and intuitive functionality and also based on the functionality of similar ecommerce shops.
+
+Thinks like register and login functionality should work as expected. Things like catalogue and shopping cart will also be assume to work as they do on other sites. Also for example, any existing UI be assumed to have a functionality, if "filter" input elements exist on catalogue then filter functionality will be assumed to be expected, if sort buttons exist on catalogue, then sort functionality will be expected, and so on. All of the UI present will be assumed to function intuitively as it would work on a similar ecommerce shop, like amazon.com, and will have corresponding user stories and test cases outlining it's functionality.
 
 At the bottom of each wiki page there are links to both the spreadsheet test cases and the test scripts belonging to them:
 
@@ -142,6 +154,12 @@ So going from each bucket of functionality down to the user stories and then the
       - Test data
       - Automated test steps
       - Automated test assertions
+
+### 7. Create smoke test suite:
+
+The first set of test cases we will create will the smoke test suite. This will test the very basic functionality of the applicaiton like register, login, navigating the site, searching for a product and maybe adding a product to the shopping cart.
+
+### 8. Create e2e test suite:
 
 ## How to install Cypress:
 
