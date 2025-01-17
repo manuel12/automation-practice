@@ -161,6 +161,14 @@ The first set of test cases we will create will the smoke test suite. This will 
 
 ### 8. Create e2e test suite:
 
+The end-to-end test suite will have the most complicated tests of entire project, it will basically mimic entire user flows from registering a user to performing several actions and loggin out. Some examples of user flows that will be included in e2e test suite:
+
+- Register user, login, navigate to catalogue, check all catalogue filters work correctly, check all sorting options work correctly, logout
+
+- Register user, login, search for a product, choose product size, color and quantity, add product to cart, complete checkout flow, check order is correctly reflected in user order history, logout
+
+- Register user, login, search for a product, add product to shopping cart, search for a product, add a second product to shopping cart, search for a product, add a third product to shopping cart, complete checkout flow, check order is correctly reflected in user order history, logout
+
 ## How to install Cypress:
 
 For installing cypress cd to the project's root folder and run:
