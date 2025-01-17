@@ -9,8 +9,9 @@
     "test:edge": "cypress run --browser edge",
     "test:electron": "cypress run --browser electron",
     "test:all-browsers": "npm run test:chrome && npm run test:firefox && npm run test:edge && npm run test:electron",
-    "test:api": "cypress run --spec 'cypress/e2e/api/'",
-    "test:ui": "cypress run --spec 'cypress/e2e/ui/'"
+    "test:smoke": "cypress run --spec 'cypress/tests/smoke/'",
+    "test:e2e": "cypress run --spec 'cypress/tests/e2e/'",
+    "test:functional": "cypress run --spec 'cypress/tests/functional/'"
   },
   "author": "",
   "license": "ISC",
