@@ -6,10 +6,10 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     baseUrl: "http://www.automationpractice.pl/",
-    specPattern: "cypress/e2e/automation-practice/**/*.{js,jsx,ts,tsx}",
+    specPattern: "cypress/tests/**/*.{js,jsx,ts,tsx}",
     excludeSpecPattern: [
-      "cypress/e2e/automation-practice/automation-practice.cy.js",
-      "cypress/e2e/automation-practice/performance.cy.js"
+      "cypress/tests/automation-practice/automation-practice.cy.js",
+      "cypress/tests/ui/performance.cy.js"
     ],
     experimentalRunAllSpecs: true,
     viewportWidth: 1200,
