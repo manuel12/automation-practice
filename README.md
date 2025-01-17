@@ -2,11 +2,11 @@
 
 ## Description:
 
-This project aims to showcase the process used to test the website _Automation Practice_, including the creation of all the corresponding test documentation, such as wikis, describing each of the modules of functionality that make up the application, the user stories outlining such functionality, and the test cases derived from them.
+This project aims to showcase the process used to test the website _Automation Practice_, including the creation of all the corresponding test documentation, such as wikis used to describe each of the modules of functionality that make up the application, the user stories outlining such functionality, and the test cases derived from them.
 
-The high priority test cases have also been translated into test scripts and automated. This project implements all such test scripts using the Cypress testing framework.
+The high priority test cases have also been translated into test scripts and automated. This project implements all such test scripts using the [Cypress](http://www.cypress.io/) testing framework.
 
-The tests include functional and e2e tests. As well as different test types such as accessibility, performance and visual tests.
+The tests include smoke, functional and e2e tests. As well as different test types such as accessibility, performance and visual tests.
 
 _Note:_ The [Automation Practice](http://www.automationpractice.pl/) website is a full-fledged website built for QA and test automation practice purposes.
 
@@ -20,8 +20,8 @@ In order to do a thorough testing of the functionality present in the Automation
 4. Prioritize buckets of functionality depending on risk
 5. Create a wiki section for each of the buckets of functionality
 6. On each wiki section add a description and user stories outlining all the corresponding functionality
-7. Create smoke test suite
-8. Create e2e test suite
+7. Create smoke test suite of the most basic functionality
+8. Create e2e test suite of common end-to-end user flows
 9. Create test cases for each of the user stories
 10. Create detailed test cases in a spreadsheet
 11. Create automated test scripts from detailed test cases (only high prio)
@@ -31,8 +31,9 @@ I will now take you step by step and show you how each step has been taken.
 ### 1. Create an account on the application: ✅
 
 Test account credentials:
-username: testuser@gmail.com
-password: Testpass1!
+
+- username: testuser@gmail.com
+- password: Testpass1!
 
 ### 2. Do exploratory testing / use the application as an user would: ✅
 
@@ -49,7 +50,7 @@ Already performed exploratory testing with said account and familiarized myself 
 - Search
 - Catalogue
 - Shopping Cart
-- Product Detail Page(PDP)
+- Product Detail Page
 - Checkout
 - Subscribe
 - Footer
@@ -60,7 +61,7 @@ _High prio_
 
 - Checkout
 - Shopping Cart
-- Product Detail Page(PDP)
+- Product Detail Page
 - Authentication
 - Catalogue
 - Search
@@ -77,9 +78,9 @@ _Low prio_
 
 Each bucket of functionality has its own wiki section in this repository, where their description, user stories and test case names are displayed.
 
-Note: It's important to mention that since there are no available requirement documents outlining the functionality of this site I will create user stories and test cases based on the obvious and intuitive functionality and also based on the functionality of similar ecommerce shops.
+Note: It's important to mention that since there are no available requirement documents outlining the functionality of this site I will create user stories and test cases based on the obvious and intuitive functionality and also based on the functionality of similar e-commerce shops.
 
-Thinks like register and login functionality should work as expected. Things like catalogue and shopping cart will also be assume to work as they do on other sites. Also for example, any existing UI be assumed to have a functionality, if "filter" input elements exist on catalogue then filter functionality will be assumed to be expected, if sort buttons exist on catalogue, then sort functionality will be expected, and so on. All of the UI present will be assumed to function intuitively as it would work on a similar ecommerce shop, like amazon.com, and will have corresponding user stories and test cases outlining it's functionality.
+Things like register and login functionality should work as expected. Things like catalogue and shopping cart will also be assume to work as they do on other sites. Also for example, any existing UI will be assumed to have a functionality, if "filter" input elements exist on the catalogue then filter functionality will be assumed to be expected, if sort buttons exist on the catalogue, then sort functionality will be expected, and so on. All of the UI present will be assumed to function intuitively as it would work on a similar e-commerce shop, like [amazon.com](http://www.amazon.com/), and will have corresponding user stories and test cases outlining it's functionality.
 
 At the bottom of each wiki page there are links to both the spreadsheet test cases and the test scripts belonging to them:
 
@@ -95,7 +96,7 @@ _High Prio Buckets of Functionality_
 
 - [Shopping Cart](https://github.com/manuel12/automation-practice/wiki/Shopping-Cart)
 
-- [Product Detail Page](<https://github.com/manuel12/automation-practice/wiki/Product-Detail-Page-(PDP)>)
+- [Product Detail Page](https://github.com/manuel12/automation-practice/wiki/Product-Detail-Page)
 
 - [Authentication](https://github.com/manuel12/automation-practice/wiki/Authentication)
 
@@ -155,11 +156,11 @@ So going from each bucket of functionality down to the user stories and then the
       - Automated test steps
       - Automated test assertions
 
-### 7. Create smoke test suite:
+### 7. Create smoke test suite of the most basic functionality:
 
-The first set of test cases we will create will the smoke test suite. This will test the very basic functionality of the applicaiton like register, login, navigating the site, searching for a product and maybe adding a product to the shopping cart.
+The first set of test cases created are the smoke test suite. This will test the very basic functionality of the applicaiton like register, login, navigating the site, searching for a product and maybe adding a product to the shopping cart.
 
-### 8. Create e2e test suite:
+### 8. Create e2e test suite of common end-to-end user flows:
 
 The end-to-end test suite will have the most complicated tests of entire project, it will basically mimic entire user flows from registering a user to performing several actions and loggin out. Some examples of user flows that will be included in e2e test suite:
 
@@ -185,7 +186,28 @@ Or if running from the CLI:
 
     npx cypress run
 
-## Current test report:
+Or if running from the CLI use one of the scripts found in package.json:
+
+```
+'test:chrome': 'cypress run --browser chrome',
+'test:firefox': 'cypress run --browser firefox',
+'test:edge': 'cypress run --browser edge',
+'test:electron': 'cypress run --browser electron',
+'test:all-browsers': 'npm run test:chrome && npm run test:firefox && npm run test:edge && npm run test:electron',
+'test:e2e': 'cypress run --spec 'cypress/e2e/e2e/'',
+'test:functional': 'cypress run --spec 'cypress/e2e/functional/'',
+'test:smoke': 'cypress run --spec 'cypress/e2e/smoke/'',
+```
+
+## Tests
+
+| Type       | Location                                               |
+| ---------- | ------------------------------------------------------ |
+| smoke      | [cypress/tests/smoke/](cypress/tests/smoke/)           |
+| e2e        | [cypress/tests/e2e/](cypress/tests/e2e/)               |
+| functional | [cypress/tests/functional/](cypress/tests/functional/) |
+
+## Current test report (functional tests):
 
 ![alt text](readme-images/test-report.png)
 
