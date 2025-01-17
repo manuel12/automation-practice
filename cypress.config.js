@@ -15,6 +15,6 @@ module.exports = defineConfig({
     viewportWidth: 1200,
     viewportHeight: 1000,
     watchForFileChanges: false,
-    retries: 1
+    retries: 0
   }
 })
